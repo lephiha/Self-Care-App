@@ -32,7 +32,8 @@ android {
 }
 
 dependencies {
-
+    //navigation
+    implementation ("com.github.ittianyu:BottomNavigationViewEx:1.2.4")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
