@@ -41,37 +41,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Full Name"
-        android:layout_below="@+id/logo"
+        android:layout_below="@id/logo"
         android:layout_marginTop="20dp"
         android:minHeight="48dp"
         android:backgroundTint="#4D2CBA"
         android:padding="12dp"
-        android:inputType="textPersonName"
-        />
+        android:inputType="textPersonName" />
+
     <EditText
         android:id="@+id/phoneInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Phone number"
-        android:layout_below="@+id/fullNameInput"
+        android:layout_below="@id/fullNameInput"
         android:layout_marginTop="16dp"
         android:minHeight="48dp"
         android:padding="12dp"
         android:inputType="phone"
         android:textSize="16sp"
         android:backgroundTint="#4D2CBA" />
+
     <EditText
         android:id="@+id/emailInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
-        android:layout_below="@+id/phoneInput"
+        android:layout_below="@id/phoneInput"
         android:layout_marginTop="10dp"
         android:backgroundTint="#4D2CBA"
         android:minHeight="48dp"
         android:inputType="textEmailAddress"
         android:padding="12dp"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
+
     <EditText
         android:id="@+id/passwordInput"
         android:layout_width="match_parent"
@@ -83,24 +85,20 @@
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:padding="12dp"
-        android:textSize="16sp"
+        android:textSize="16sp" />
 
-        />
-
-
-        />
     <EditText
         android:id="@+id/confirmPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Confirm Password"
-        android:layout_below="@+id/passwordInput"
+        android:layout_below="@id/passwordInput"
         android:layout_marginTop="10dp"
         android:backgroundTint="#4D2CBA"
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:padding="12dp"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/signUpButton"
@@ -109,7 +107,7 @@
         android:text="Sign Up"
         android:textColor="#FFFFFF"
         android:backgroundTint="#4D2CBA"
-        android:layout_below="@+id/confirmPass"
+        android:layout_below="@id/confirmPass"
         android:layout_marginTop="20dp" />
 
     <TextView

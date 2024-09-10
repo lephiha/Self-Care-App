@@ -58,6 +58,19 @@
         android:padding="12dp"
         android:background="@drawable/edittext_background"
         android:layout_marginTop="12dp" />
+
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:visibility="gone"
+        android:layout_below="@id/passwordEditText"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        />
+
+
     <Button
         android:id="@+id/loginBtn"
         android:layout_width="400dp"
@@ -65,7 +78,7 @@
         android:text="Login"
         android:textColor="#fff"
         android:backgroundTint="#6a1b9a"
-        android:layout_below="@+id/passwordEditText"
+        android:layout_below="@+id/tv_error"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
