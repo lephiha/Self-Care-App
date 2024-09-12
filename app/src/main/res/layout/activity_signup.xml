@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
     <TextView
@@ -36,69 +37,108 @@
         android:layout_marginTop="10dp"
         android:src="@drawable/logo" />
 
-    <EditText
-        android:id="@+id/fullNameInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Full Name"
-        android:layout_below="@id/logo"
-        android:layout_marginTop="20dp"
-        android:minHeight="48dp"
-        android:backgroundTint="#4D2CBA"
-        android:padding="12dp"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/phoneInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Phone number"
-        android:layout_below="@id/fullNameInput"
-        android:layout_marginTop="16dp"
-        android:minHeight="48dp"
-        android:padding="12dp"
-        android:inputType="phone"
-        android:textSize="16sp"
-        android:backgroundTint="#4D2CBA" />
-
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
-        android:layout_below="@id/phoneInput"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#4D2CBA"
-        android:minHeight="48dp"
-        android:inputType="textEmailAddress"
-        android:padding="12dp"
-        android:textSize="16sp" />
+        android:layout_margin="8dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        app:counterMaxLength="20"
+        android:layout_below="@+id/logo">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Email"
+            android:drawableStart="@drawable/baseline_email_24"
+            android:drawablePadding="12dp"
+            android:inputType="textEmailAddress"
+            android:textSize="16sp"
+            />
 
-    <EditText
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/phoneInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        app:counterMaxLength="20"
+        android:layout_below="@+id/emailInput">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/phoneEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Phone Number"
+            android:drawableStart="@drawable/baseline_local_phone_24"
+            android:drawablePadding="12dp"
+            android:inputType="phone"
+            android:textSize="16sp"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/usernameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        app:counterMaxLength="20"
+        android:layout_below="@+id/phoneInput">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="User Name"
+            android:drawableStart="@drawable/person"
+            android:drawablePadding="12dp"
+            android:textSize="16sp"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
-        android:layout_below="@id/emailInput"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#4D2CBA"
-        android:inputType="textPassword"
-        android:minHeight="48dp"
-        android:padding="12dp"
-        android:textSize="16sp" />
+        android:layout_margin="8dp"
+        app:endIconMode="password_toggle"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        app:counterMaxLength="20"
+        android:layout_below="@+id/usernameInput">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Password"
+            android:drawableStart="@drawable/baseline_lock_24"
+            android:drawablePadding="12dp"
+            android:inputType="textPassword"
+            android:textSize="16sp"
+            />
 
-    <EditText
-        android:id="@+id/confirmPass"
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/confirmPasswordInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Confirm Password"
-        android:layout_below="@id/passwordInput"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#4D2CBA"
-        android:inputType="textPassword"
-        android:minHeight="48dp"
-        android:padding="12dp"
-        android:textSize="16sp" />
+        android:layout_margin="8dp"
+        app:endIconMode="password_toggle"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        app:counterMaxLength="20"
+        android:layout_below="@+id/passwordInput">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/confirmPasswordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Confirm Password"
+            android:drawableStart="@drawable/baseline_lock_24"
+            android:drawablePadding="12dp"
+            android:inputType="textPassword"
+            android:textSize="16sp"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/signUpButton"
@@ -107,8 +147,8 @@
         android:text="Sign Up"
         android:textColor="#FFFFFF"
         android:backgroundTint="#4D2CBA"
-        android:layout_below="@id/confirmPass"
-        android:layout_marginTop="20dp" />
+        android:layout_below="@id/confirmPasswordInput"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/loginRedirect"
@@ -118,6 +158,6 @@
         android:textSize="14sp"
         android:layout_below="@id/signUpButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:textColor="#4D2CBA" />
 </RelativeLayout>

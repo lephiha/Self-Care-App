@@ -2,12 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FFFFFF">
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="350dp"
-        android:layout_height="350dp"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
         android:src="@drawable/logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
@@ -37,27 +38,57 @@
         android:layout_marginTop="10dp"
         />
 
-    <EditText
-        android:id="@+id/emailEditText"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/usernameInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/logo"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:padding="12dp"
-        android:background="@drawable/edittext_background"
-        android:layout_marginTop="20dp"/>
+        android:layout_margin="10dp"
+        app:boxBackgroundMode="outline"
+        app:counterMaxLength="20"
+        app:boxBackgroundColor="@color/white"
+        app:helperTextEnabled="true"
+        app:helperText="Enter User Name"
+        app:helperTextTextColor="@color/brown_200"
+        android:layout_below="@+id/logo">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="User Name"
+            android:drawableStart="@drawable/person"
+            android:drawablePadding="12dp"
+            />
 
-    <EditText
-        android:id="@+id/passwordEditText"
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordTextInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/emailEditText"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:padding="12dp"
-        android:background="@drawable/edittext_background"
-        android:layout_marginTop="12dp" />
+        android:layout_margin="10dp"
+
+        app:boxBackgroundMode="outline"
+        app:boxBackgroundColor="@color/white"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:helperTextEnabled="true"
+        app:helperText="Enter Password"
+        app:helperTextTextColor="@color/brown_200"
+
+        app:endIconMode="password_toggle"
+        android:layout_below="@+id/usernameInput">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPassword"
+            android:textSize="16sp"
+            android:hint="Password"
+            android:drawableStart="@drawable/baseline_lock_24"
+            android:drawablePadding="12dp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/tv_error"
@@ -65,7 +96,7 @@
         android:layout_height="wrap_content"
         android:textColor="#FF0000"
         android:visibility="gone"
-        android:layout_below="@id/passwordEditText"
+        android:layout_below="@id/passwordTextInput"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         />
@@ -80,10 +111,9 @@
         android:backgroundTint="#6a1b9a"
         android:layout_below="@+id/tv_error"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-
+        android:layout_marginTop="10dp"
         />
 
     <TextView

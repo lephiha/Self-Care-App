@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +32,7 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     TextView signUpRedirect, tv_error;
-    EditText emailEditText, passwordEditText;
+    TextInputEditText usernameEditText, passwordEditText;
     Button loginBtn;
 
     String url_login = "http://192.168.0.107/selfcare/login.php";
@@ -65,14 +66,14 @@ public class LoginActivity extends AppCompatActivity {
     @SuppressLint("WrongViewCast")
     private void Anhxa() {
         signUpRedirect = findViewById(R.id.signUpRedirect);
-        emailEditText = findViewById(R.id.emailEditText);
+        usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginBtn = findViewById(R.id.loginBtn);
         tv_error = findViewById(R.id.tv_error);
     }
 
     private void GoLogin() {
-        String username = emailEditText.getText().toString().trim();
+        String username = usernameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
         if(username.isEmpty()) {

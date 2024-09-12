@@ -20,4 +20,10 @@
         android:title="Tài khoản">
 
     </item>
+
+    <item
+        android:id="@+id/menuLogout"
+        android:title="Logout"
+        />
+
 </menu>

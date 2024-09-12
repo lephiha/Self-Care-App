@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
-    EditText fullNameInput, phoneInput, emailInput, passwordInput, confirmPass;
+    TextInputEditText emailEditText, phoneEditText, usernameEditText, passwordEditText, confirmPasswordEditText;
     TextView loginRedirect;
     Button signUpButton;
 
@@ -61,11 +62,11 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void Anhxa() {
-        fullNameInput = findViewById(R.id.fullNameInput);
-        phoneInput = findViewById(R.id.phoneInput);
-        emailInput = findViewById(R.id.emailInput); // Sửa từ emailEditText thành emailInput
-        passwordInput = findViewById(R.id.passwordInput);
-        confirmPass = findViewById(R.id.confirmPass);
+        emailEditText = findViewById(R.id.emailEditText);
+        phoneEditText = findViewById(R.id.phoneEditText);
+        usernameEditText = findViewById(R.id.usernameEditText); // Sửa từ emailEditText thành emailInput
+        passwordEditText = findViewById(R.id.passwordEditText);
+        confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
         loginRedirect = findViewById(R.id.loginRedirect);
         signUpButton = findViewById(R.id.signUpButton);
     }
@@ -74,9 +75,9 @@ public class SignUpActivity extends AppCompatActivity {
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
 
-        String username = emailInput.getText().toString().trim();
-        String password = passwordInput.getText().toString().trim();
-        String confirmPassword = confirmPass.getText().toString().trim();
+        String username = usernameEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+        String confirmPassword = confirmPasswordEditText.getText().toString().trim();
 
         // Kiểm tra dữ liệu đầu vào
         if (username.isEmpty()) {
@@ -113,7 +114,11 @@ public class SignUpActivity extends AppCompatActivity {
                                 Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                                 startActivity(intent);
                                 finish(); // Kết thúc SignUpActivity
-                            } else {
+                            } else if (success.equals("2")) {
+                                progressDialog.dismiss();
+                                Toast.makeText(SignUpActivity.this, "Username Already Taken",Toast.LENGTH_LONG).show();
+                            }
+                            else {
                                 progressDialog.dismiss();
                                 Toast.makeText(SignUpActivity.this, "Registration Failed", Toast.LENGTH_LONG).show();
                             }
