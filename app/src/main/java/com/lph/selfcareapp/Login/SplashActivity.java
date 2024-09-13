@@ -1,13 +1,14 @@
-package com.lph.selfcareapp;
+package com.lph.selfcareapp.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.lph.selfcareapp.R;
 
 public class SplashActivity extends AppCompatActivity {
 

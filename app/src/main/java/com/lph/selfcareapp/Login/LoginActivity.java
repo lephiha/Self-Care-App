@@ -1,4 +1,4 @@
-package com.lph.selfcareapp;
+package com.lph.selfcareapp.Login;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +21,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
+import com.lph.selfcareapp.MainActivity;
+import com.lph.selfcareapp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -103,11 +104,16 @@ public class LoginActivity extends AppCompatActivity {
                                         progressDialog.dismiss();
 
                                         // Chuyển đến MainActivity khi đăng nhập thành công
+                                        Log.d("LOGIN", "Đăng nhập thành công, chuyển đến MainActivity");
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                        intent.putExtra("userid", ojbuserid);
+                                        startActivity(intent);
+                                        finish();
+
+                                        /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        //intent.putExtra("userid", ojbuserid);
                                         intent.putExtra("username", ojbusername);
                                         startActivity(intent);
-                                        finish(); // Đóng LoginActivity
+                                        finish(); // Đóng LoginActivity*/
                                     }
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
