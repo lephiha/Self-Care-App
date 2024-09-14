@@ -3,6 +3,7 @@ package com.lph.selfcareapp.Login;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -100,7 +101,19 @@ public class LoginActivity extends AppCompatActivity {
                                         JSONObject object = jsonArray.getJSONObject(i);
                                         String ojbuserid = object.getString("userid");
                                         String ojbusername = object.getString("username").trim();
-                                        Toast.makeText(LoginActivity.this, "User ID: " + ojbuserid + " Name: " + ojbusername, Toast.LENGTH_LONG).show();
+                                        String objfullname  = object.getString("fullname").trim();
+                                        String objemail = object.getString("email").trim();
+
+                                        // lưu vào sharedpreference
+                                        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString("userid", ojbuserid);
+                                        editor.putString("username", ojbusername);
+                                        editor.putString("fullname", objfullname);
+                                        editor.putString("email", objemail);
+                                        editor.apply();
+
+                                        Toast.makeText(LoginActivity.this, "Welcome " + objfullname, Toast.LENGTH_LONG).show();
                                         progressDialog.dismiss();
 
                                         // Chuyển đến MainActivity khi đăng nhập thành công

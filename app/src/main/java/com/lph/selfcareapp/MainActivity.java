@@ -1,8 +1,11 @@
 package com.lph.selfcareapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,6 +50,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
+
+        // Lấy NavigationView và Header
+
+        View headerView = navigationView.getHeaderView(0);
+
+        TextView navFullname = headerView.findViewById(R.id.nav_header_fullname);
+        TextView navEmail = headerView.findViewById(R.id.nav_header_email);
+
+        // Lấy thông tin từ SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        String fullname = sharedPreferences.getString("fullname", "Full Name");
+        String email = sharedPreferences.getString("email", "email@example.com");
+
+        // Hiển thị fullname và email trong header
+        navFullname.setText(fullname);
+        navEmail.setText(email);
     }
 
     @Override

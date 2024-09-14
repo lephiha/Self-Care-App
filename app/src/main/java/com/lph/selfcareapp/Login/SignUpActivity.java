@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
-    TextInputEditText emailEditText, phoneEditText, usernameEditText, passwordEditText, confirmPasswordEditText;
+    TextInputEditText fullnameEditText,emailEditText, phoneEditText, usernameEditText, passwordEditText, confirmPasswordEditText;
     TextView loginRedirect;
     Button signUpButton;
 
@@ -62,9 +62,10 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void Anhxa() {
+        fullnameEditText = findViewById(R.id.fullnamelEditText);
         emailEditText = findViewById(R.id.emailEditText);
         phoneEditText = findViewById(R.id.phoneEditText);
-        usernameEditText = findViewById(R.id.usernameEditText); // Sửa từ emailEditText thành emailInput
+        usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
         loginRedirect = findViewById(R.id.loginRedirect);
@@ -75,13 +76,28 @@ public class SignUpActivity extends AppCompatActivity {
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait...");
 
+        String fullname = fullnameEditText.getText().toString().trim();
+        String email = emailEditText.getText().toString().trim();
+        String phone = phoneEditText.getText().toString().trim();
         String username = usernameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
         String confirmPassword = confirmPasswordEditText.getText().toString().trim();
 
         // Kiểm tra dữ liệu đầu vào
-        if (username.isEmpty()) {
+        if (fullname.isEmpty()) {
+            Toast.makeText(SignUpActivity.this, "Please enter your full name", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (email.isEmpty()) {
             Toast.makeText(SignUpActivity.this, "Please enter your email", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (phone.isEmpty()) {
+            Toast.makeText(SignUpActivity.this, "Please enter your phone number", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (username.isEmpty()) {
+            Toast.makeText(SignUpActivity.this, "Please enter your username", Toast.LENGTH_LONG).show();
             return;
         }
         if (password.isEmpty()) {
@@ -139,6 +155,9 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                params.put("fullname", fullname);
+                params.put("email", email);
+                params.put("phone", phone);
                 params.put("username", username);
                 params.put("password", password);
                 return params;

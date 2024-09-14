@@ -38,13 +38,33 @@
         android:src="@drawable/logo" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailInput"
+        android:id="@+id/fullnameInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="2dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         app:counterMaxLength="20"
         android:layout_below="@+id/logo">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fullnamelEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Full Name"
+            android:drawableStart="@drawable/baseline_drive_file_rename_outline_24"
+            android:drawablePadding="12dp"
+            android:inputType="textEmailAddress"
+            android:textSize="16sp"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        app:counterMaxLength="20"
+        android:layout_below="@+id/fullnameInput">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
@@ -61,7 +81,7 @@
         android:id="@+id/phoneInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="2dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         app:counterMaxLength="20"
         android:layout_below="@+id/emailInput">
@@ -82,7 +102,7 @@
         android:id="@+id/usernameInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="2dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         app:counterMaxLength="20"
         android:layout_below="@+id/phoneInput">
@@ -101,7 +121,7 @@
         android:id="@+id/passwordInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="2dp"
         app:endIconMode="password_toggle"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         app:counterMaxLength="20"
@@ -122,7 +142,7 @@
         android:id="@+id/confirmPasswordInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="2dp"
         app:endIconMode="password_toggle"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         app:counterMaxLength="20"
@@ -148,7 +168,7 @@
         android:textColor="#FFFFFF"
         android:backgroundTint="#4D2CBA"
         android:layout_below="@id/confirmPasswordInput"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/loginRedirect"
@@ -158,6 +178,6 @@
         android:textSize="14sp"
         android:layout_below="@id/signUpButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:textColor="#4D2CBA" />
 </RelativeLayout>
