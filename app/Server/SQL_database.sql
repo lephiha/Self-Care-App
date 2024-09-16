@@ -70,6 +70,7 @@ INSERT INTO `appointment` (`appoid`, `pid`, `apponum`, `scheduleid`, `appodate`)
 -- --------------------------------------------------------
 
 --
+<<<<<<< HEAD
 -- Table structure for table `clinic`
 --
 
@@ -94,6 +95,19 @@ INSERT INTO `clinic` VALUES
 --
 -- Table structure for table `doctor`
 --
+=======
+-- Table structure for table `doctor`
+--
+create table clinic(
+	clinic_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    clinic_name varchar(255),
+    address varchar(255),
+    clinic_image varchar(255),
+    chief_id int(11)
+    )
+
+INSERT INTO clinic VALUES(NULL, "Phòng khám Nhi và Tâm lý Baby Dino", "Hado Centrosa Garden, Số 10 Đường số 8, Phường 12, Quận 10, TPHCM", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk9Shweckvc7IaJoOq535ERTUlI19Nlw3FHw&s", NULL)
+>>>>>>> 585cfe66d3c9c7990de9a36817a9ef2e13bfd539
 
 DROP TABLE IF EXISTS `doctor`;
 CREATE TABLE IF NOT EXISTS `doctor` (
@@ -234,6 +248,7 @@ INSERT INTO `specialties` (`id`, `sname`) VALUES
 (40, 'Pharmacology'),
 (41, 'Physical medicine and rehabilitation'),
 (42, 'Plastic surgery'),
+<<<<<<< HEAD
 (43, 'Podiatric surgery'),
 (44, 'Psychiatry'),
 (45, 'Public health'),
@@ -245,10 +260,27 @@ INSERT INTO `specialties` (`id`, `sname`) VALUES
 (51, 'Tropical medicine'),
 (52, 'Urology'),
 (53, 'Vascular surgery');
+=======
+(43, 'Podiatric Medicine'),
+(44, 'Podiatric Surgery'),
+(45, 'Psychiatry'),
+(46, 'Public health and Preventive Medicine'),
+(47, 'Radiology'),
+(48, 'Radiotherapy'),
+(49, 'Respiratory medicine'),
+(50, 'Rheumatology'),
+(51, 'Stomatology'),
+(52, 'Thoracic surgery'),
+(53, 'Tropical medicine'),
+(54, 'Urology'),
+(55, 'Vascular surgery'),
+(56, 'Venereology');
+>>>>>>> 585cfe66d3c9c7990de9a36817a9ef2e13bfd539
 
 -- --------------------------------------------------------
 
 --
+<<<<<<< HEAD
 -- Table structure for table `user`
 --
 
@@ -257,10 +289,20 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
   `utype` varchar(255) DEFAULT NULL,
+=======
+-- Table structure for table `webuser`
+--
+
+DROP TABLE IF EXISTS `webuser`;
+CREATE TABLE IF NOT EXISTS `webuser` (
+  `email` varchar(255) NOT NULL,
+  `usertype` char(1) DEFAULT NULL,
+>>>>>>> 585cfe66d3c9c7990de9a36817a9ef2e13bfd539
   PRIMARY KEY (`email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
+<<<<<<< HEAD
 -- Dumping data for table `user`
 --
 
@@ -276,3 +318,18 @@ INSERT INTO `user` (`email`, `password`, `utype`) VALUES
 
 COMMIT;
 
+=======
+-- Dumping data for table `webuser`
+--
+
+INSERT INTO `webuser` (`email`, `usertype`) VALUES
+('admin@edoc.com', 'a'),
+('doctor@edoc.com', 'd'),
+('patient@edoc.com', 'p'),
+('emhashenudara@gmail.com', 'p');
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+>>>>>>> 585cfe66d3c9c7990de9a36817a9ef2e13bfd539
