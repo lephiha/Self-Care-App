@@ -91,13 +91,26 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
+        android:id="@+id/forgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password?"
+        android:textSize="14sp"
+        android:textColor="#6A1B9A"
+        android:layout_below="@+id/passwordTextInput"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/tv_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FF0000"
         android:visibility="gone"
         android:layout_below="@id/passwordTextInput"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:layout_centerHorizontal="true"
         />
 
@@ -113,7 +126,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="18dp"
         />
 
     <TextView

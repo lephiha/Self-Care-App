@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
-    TextView signUpRedirect, tv_error;
+    TextView signUpRedirect, tv_error, forgotPassword;
     TextInputEditText usernameEditText, passwordEditText;
     Button loginBtn;
 
@@ -63,6 +63,14 @@ public class LoginActivity extends AppCompatActivity {
                 GoLogin();
             }
         });
+        // click forgot pass
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPassActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @SuppressLint("WrongViewCast")
@@ -72,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         loginBtn = findViewById(R.id.loginBtn);
         tv_error = findViewById(R.id.tv_error);
+        forgotPassword = findViewById(R.id.forgotPassword);
     }
 
     private void GoLogin() {

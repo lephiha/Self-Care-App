@@ -126,10 +126,10 @@ public class SignUpActivity extends AppCompatActivity {
                             if (success.equals("1")) {
                                 progressDialog.dismiss();
                                 Toast.makeText(SignUpActivity.this, "Register Successful", Toast.LENGTH_LONG).show();
-                                // Có thể thêm chuyển hướng sang LoginActivity hoặc MainActivity
+                                //
                                 Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                                 startActivity(intent);
-                                finish(); // Kết thúc SignUpActivity
+                                finish();
                             } else if (success.equals("2")) {
                                 progressDialog.dismiss();
                                 Toast.makeText(SignUpActivity.this, "Username Already Taken",Toast.LENGTH_LONG).show();

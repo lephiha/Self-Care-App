@@ -1,0 +1,11 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Màu nền cho phần top -->
+    <solid android:color="#5E35B1"/> <!-- Màu tím, thay đổi nếu cần -->
+
+    <!-- Bo góc tròn chỉ cho phần đáy -->
+    <corners android:bottomLeftRadius="40dp"
+        android:bottomRightRadius="40dp"/>
+
+    <!-- Bóng đổ phía dưới -->
+    <padding android:bottom="10dp"/> <!-- Điều chỉnh nếu cần -->
+</shape>
