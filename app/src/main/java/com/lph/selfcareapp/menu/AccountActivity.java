@@ -4,21 +4,24 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.imageview.ShapeableImageView;
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lph.selfcareapp.Login.LoginActivity;
+import com.lph.selfcareapp.MainActivity;
 import com.lph.selfcareapp.R;
+import com.lph.selfcareapp.Utils.BottomNavigationViewHelper;
 
-public class AccountFragment extends Fragment {
+public class AccountActivity extends AppCompatActivity {
     private Button logout_btn;
     private ImageView backButton;
     private ShapeableImageView avatar;
@@ -26,18 +29,16 @@ public class AccountFragment extends Fragment {
     private ListView account_listview;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_account, container, false);
-
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_account);
         // Ánh xạ các phần tử giao diện
-        backButton = view.findViewById(R.id.backButton);
-        avatar = view.findViewById(R.id.avatar);
-        logout_btn = view.findViewById(R.id.logout_btn);
-        usernameText = view.findViewById(R.id.username);
-        account_listview = view.findViewById(R.id.account_listview);
-
+        backButton = findViewById(R.id.backButton);
+        avatar = findViewById(R.id.avatar);
+        logout_btn = findViewById(R.id.logout_btn);
+        usernameText = findViewById(R.id.username);
+        account_listview = findViewById(R.id.account_listview);
+        setupNavigationView();
         // Thiết lập tên người dùng
         String username = "laphihe";
         usernameText.setText(username);
@@ -50,14 +51,12 @@ public class AccountFragment extends Fragment {
 
         // Thiết lập sự kiện cho nút đăng xuất
         logout_btn.setOnClickListener(v -> logout());
-
-        return view;
     }
 
+
+
     private void onBackPress() {
-        if (getActivity() != null) {
-            getActivity().onBackPressed();
-        }
+        getOnBackPressedDispatcher().onBackPressed();
     }
 
     private void openImagePicker() {
@@ -66,22 +65,32 @@ public class AccountFragment extends Fragment {
     }
 
     private void logout() {
-        getActivity().getSharedPreferences("MyPrefs", getActivity().MODE_PRIVATE).edit().clear().apply();
+        getApplication().getSharedPreferences("MyPrefs", getApplication().MODE_PRIVATE).edit().clear().apply();
 
-        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        Intent intent = new Intent(getApplication(), LoginActivity.class);
         startActivity(intent);
-        getActivity().finish(); // Kết thúc Activity hiện tại
+        finish();// Kết thúc Activity hiện tại
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == getActivity().RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             // Xử lý ảnh được chọn
             Uri selectedImageUri = data.getData();
             if (avatar != null) {
                 avatar.setImageURI(selectedImageUri);
             }
         }
+    }
+
+    private void setupNavigationView(){
+        Log.d("Main", "setupTopNavigationView: setting up TopNavigationView");
+        BottomNavigationViewEx tvEx = findViewById(R.id.bottomNavBar);
+        BottomNavigationViewHelper.setupTopNavigationView(tvEx);
+        BottomNavigationViewHelper.enableNavigation(AccountActivity.this, tvEx);
+        Menu menu = tvEx.getMenu();
+        MenuItem menuItem = menu.getItem(3);
+        menuItem.setChecked(true);
     }
 }

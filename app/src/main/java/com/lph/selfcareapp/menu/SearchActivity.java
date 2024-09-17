@@ -1,18 +1,12 @@
 package com.lph.selfcareapp.menu;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-import android.os.PersistableBundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lph.selfcareapp.MainActivity;
@@ -20,12 +14,11 @@ import com.lph.selfcareapp.R;
 import com.lph.selfcareapp.Utils.BottomNavigationViewHelper;
 
 
-public class MedicalFragment extends AppCompatActivity {
-
+public class SearchActivity extends AppCompatActivity {
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_medical);
+        setContentView(R.layout.fragment_search);
         setupNavigationView();
     }
 
@@ -33,9 +26,9 @@ public class MedicalFragment extends AppCompatActivity {
         Log.d("Main", "setupTopNavigationView: setting up TopNavigationView");
         BottomNavigationViewEx tvEx = findViewById(R.id.bottomNavBar);
         BottomNavigationViewHelper.setupTopNavigationView(tvEx);
-        BottomNavigationViewHelper.enableNavigation(MedicalFragment.this, tvEx);
+        BottomNavigationViewHelper.enableNavigation(SearchActivity.this, tvEx);
         Menu menu = tvEx.getMenu();
-        MenuItem menuItem = menu.getItem(1);
+        MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
     }
 }
