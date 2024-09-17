@@ -9,7 +9,7 @@
             android:layout_alignParentBottom="true"
             android:orientation="horizontal">
             <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
-                android:id="@+id/topNavViewBar"
+                android:id="@+id/bottomNavBar"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 app:itemIconSize="35dp"

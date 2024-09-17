@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:paddingTop="16dp"
 
-    tools:context=".menu.AccountFragment">
+    tools:context=".menu.AccountActivity">
 
     <!--Back btn-->
+
     <ImageView
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
@@ -62,5 +63,5 @@
         android:divider="@color/colorAccent"
         android:dividerHeight="1dp"
         />
-
+    <include layout="@layout/bottom_navigation"/>
 </LinearLayout>
