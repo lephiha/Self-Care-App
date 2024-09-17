@@ -14,7 +14,7 @@
             $row = mysqli_fetch_assoc($response);
             
             if (password_verify($password, $row['password'])) {
-                $index['userid'] = $row['userid'];
+                
                 $index['username'] = $row['username'];
                 $index['fullname'] = $row['fullname']; 
                 $index['email'] = $row['email']; 

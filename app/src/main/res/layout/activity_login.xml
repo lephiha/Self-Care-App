@@ -97,6 +97,7 @@
         android:text="Forgot Password?"
         android:textSize="14sp"
         android:textColor="#6A1B9A"
+        android:minHeight="48dp"
         android:layout_below="@+id/passwordTextInput"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="16dp"
@@ -126,7 +127,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="20dp"
         />
 
     <TextView

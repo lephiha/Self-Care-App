@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if (success.equals("1")) {
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);
-                                        String ojbuserid = object.getString("userid");
+
                                         String ojbusername = object.getString("username").trim();
                                         String objfullname  = object.getString("fullname").trim();
                                         String objemail = object.getString("email").trim();
@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                                         // lưu vào sharedpreference
                                         SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putString("userid", ojbuserid);
+
                                         editor.putString("username", ojbusername);
                                         editor.putString("fullname", objfullname);
                                         editor.putString("email", objemail);

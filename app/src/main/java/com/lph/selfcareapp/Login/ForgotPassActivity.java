@@ -49,13 +49,21 @@ public class ForgotPassActivity extends AppCompatActivity {
                 phone = phoneEditText.getText().toString();
                 username = usernameEditText.getText().toString();
 
+                // Kiểm tra thông tin người dùng nhập trước khi gửi yêu cầu
+                if (phone.isEmpty() || username.isEmpty()) {
+                    Toast.makeText(ForgotPassActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         if (response.equals("SUCCESS")) {
                             Toast.makeText(getApplicationContext(), "Email đã được gửi, vui lòng kiểm tra hộp thư", Toast.LENGTH_LONG).show();
+                        } else if (response.equals("USER_NOT_FOUND")) {
+                            Toast.makeText(getApplicationContext(), "Tên đăng nhập hoặc số điện thoại không đúng", Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(getApplicationContext(), "Thất bại", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Có lỗi xảy ra, vui lòng thử lại", Toast.LENGTH_LONG).show();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -80,4 +88,5 @@ public class ForgotPassActivity extends AppCompatActivity {
             }
         });
     }
+
 }
