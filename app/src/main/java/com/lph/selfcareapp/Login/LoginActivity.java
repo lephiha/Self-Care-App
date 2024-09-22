@@ -131,11 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();
 
-                                        /*Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                        //intent.putExtra("userid", ojbuserid);
-                                        intent.putExtra("username", ojbusername);
-                                        startActivity(intent);
-                                        finish(); // Đóng LoginActivity*/
+
                                     }
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_LONG).show();

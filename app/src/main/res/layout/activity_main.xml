@@ -63,6 +63,8 @@
 
     </LinearLayout>
 
+
+
     <GridLayout
         android:id="@+id/gridLayout"
         android:layout_width="match_parent"
@@ -74,16 +76,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayout">
 
+
         <!-- Nút Đặt lịch khám bệnh -->
         <Button
             android:id="@+id/bookingBtn"
-            android:layout_width="140dp"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:background="@android:color/transparent"
             android:drawableTop="@drawable/calendar_clock"
             android:drawablePadding="10dp"
             android:text="Đặt lịch khám bệnh"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
+
 
         <!-- Nút Xem kết quả khám bệnh -->
         <Button
@@ -93,7 +98,30 @@
             android:background="@android:color/transparent"
             android:drawableTop="@drawable/medical_services"
             android:drawablePadding="10dp"
+            android:layout_margin="10dp"
             android:text="Xem kết quả khám bệnh"
+            android:textColor="@color/black"/>
+
+        <Button
+            android:id="@+id/examBtn"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/baseline_video_call_24"
+            android:drawablePadding="10dp"
+            android:layout_margin="10dp"
+            android:text="Tư vấn khám qua video"
+            android:textColor="@color/black"/>
+
+        <Button
+            android:id="@+id/healthPack"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/baseline_gpp_good_24"
+            android:drawablePadding="10dp"
+            android:text="Gói sức khỏe toàn diện"
+            android:layout_margin="10dp"
             android:textColor="@color/black"/>
     </GridLayout>
 
@@ -117,6 +145,8 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
 <!--    />-->
-    <include layout="@layout/bottom_navigation"></include>
+    <include layout="@layout/bottom_navigation">
+
+    </include>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
