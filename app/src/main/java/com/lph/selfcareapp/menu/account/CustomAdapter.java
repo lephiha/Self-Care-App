@@ -1,4 +1,4 @@
-package com.lph.selfcareapp.menu;
+package com.lph.selfcareapp.menu.account;
 
 import android.content.Context;
 import android.view.LayoutInflater;

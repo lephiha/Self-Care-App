@@ -28,7 +28,7 @@ import com.lph.selfcareapp.Login.LoginActivity;
 import com.lph.selfcareapp.R;
 import com.lph.selfcareapp.Utils.BottomNavigationViewHelper;
 import com.lph.selfcareapp.menu.*;
-import com.lph.selfcareapp.menu.CustomAdapter;
+import com.lph.selfcareapp.menu.account.CustomAdapter;
 
 public class AccountActivity extends AppCompatActivity {
     private Button logout_btn;
@@ -108,23 +108,48 @@ public class AccountActivity extends AppCompatActivity {
                         intent = new Intent(AccountActivity.this, UsePolicyActivity.class);
                         break;
                     case 1:
-//                        intent = new Intent(AccountActivity.this, PrivacyPolicyActivity.class);
+                        intent = new Intent(AccountActivity.this, PrivacyPolicyActivity.class);
                         break;
                     case 2:
                         intent = new Intent(AccountActivity.this, TermServiceActivity.class);
                         break;
                     case 3:
                         intent = new Intent(AccountActivity.this, CallActivity.class);
+                        startActivity(intent);
                         break;
                     case 4:
                         intent = new Intent(AccountActivity.this, RateApp.class);
+                        startActivity(intent);
                         break;
                     case 5:
-                        intent = new Intent(AccountActivity.this, HomeFragment.class);
+                        // Tạo Intent để chia sẻ
+                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                        shareIntent.setType("text/plain");
+                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Chia sẻ ứng dụng");
+
+                        // Nội dung chia sẻ
+                        String shareMessage = "Tải ứng dụng SelfCare tại: https://www.example.com";
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+
+                        // Hiển thị menu chia sẻ với các ứng dụng có thể xử lý
+                        startActivity(Intent.createChooser(shareIntent, "Chia sẻ qua"));
                         break;
+
                     case 6:
                         intent = new Intent(AccountActivity.this, FAQ.class);
                         break;
+
+                    case 7:
+                        // Xóa thông tin
+                        getApplication().getSharedPreferences("MyPrefs", MODE_PRIVATE).edit().clear().apply();
+
+                        intent = new Intent(AccountActivity.this, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+
+                        finish();
+                        break;
+
                 }
 
                 if (intent != null) {
