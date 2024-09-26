@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 17, 2024 lúc 01:37 PM
+-- Thời gian đã tạo: Th9 26, 2024 lúc 02:44 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.0.30
 
@@ -115,6 +115,19 @@ CREATE TABLE `login` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `message` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -272,7 +285,7 @@ INSERT INTO `specialties` (`id`, `sname`) VALUES
 CREATE TABLE `user` (
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `utype` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `utype` enum('doctor','patient','admin') NOT NULL,
   `fullname` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
@@ -287,8 +300,9 @@ INSERT INTO `user` (`email`, `password`, `utype`, `fullname`, `username`, `phone
 ('doctor@edoc.com', '123', 'doctor', '', '', ''),
 ('patient@edoc.com', '123', 'patient', '', '', ''),
 ('emhashenudara@gmail.com', '123', 'patient', '', '', ''),
-('php@gmail.com', '$2y$10$RKRZ1ousP6tI/VgWpbxR4.wmdFdWsK2ifIGIXZloN1rk4LVGbSHu.', NULL, 'lephiha', 'phiadmin', '0392405111'),
-('laphi@gmail.com', '$2y$10$MfDpTgGFmwhXlkzjQhpjZOGUEHneKz7Z/XcCJHB2HCdseICr5E7Xq', NULL, 'La Phi He', 'lahe202', '0584649011');
+('leha@edoc.com', '$2y$10$Xv5rJ.QqvWQ7YL1oJMJXs.HYMBcZNlrjFDuY7nGSEwiZqsxiDitJS', 'patient', 'Le Phi Ha', 'lephiha', '0392405600'),
+('admin@gmail.com', '$2y$10$h1STM14PRUAZe577cFWihOMD3X74.vPdz9YUt4crOhfya.jf.M06m', 'admin', 'ADMIN', 'admin', '012345678'),
+('drxuan@edoc.com', '$2y$10$wYoDOc5P.3Fk6pec.psG9esolQwG3cTqzonKG6UBHrvJdw8l80MYe', 'doctor', 'Doctor Xuan', 'xuantocdo', '0584649100');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -326,6 +340,12 @@ ALTER TABLE `doctor`
 --
 ALTER TABLE `login`
   ADD PRIMARY KEY (`ID`);
+
+--
+-- Chỉ mục cho bảng `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `patient`
@@ -379,6 +399,12 @@ ALTER TABLE `doctor`
 --
 ALTER TABLE `login`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `patient`
