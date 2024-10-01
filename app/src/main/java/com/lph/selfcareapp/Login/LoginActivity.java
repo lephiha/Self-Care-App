@@ -106,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                                 String objusername = object.getString("username").trim();
                                 String objfullname = object.getString("fullname").trim();
                                 String objemail = object.getString("email").trim();
+                                String objphone = object.getString("phone").trim();
                                 String objrole = object.getString("utype").trim();
 
                                 // Log vai trò từ server
@@ -117,6 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString("username", objusername);
                                 editor.putString("fullname", objfullname);
                                 editor.putString("email", objemail);
+                                editor.putString("phone", objphone);
                                 editor.putString("utype", objrole);  // Lưu role
                                 editor.apply();
 
@@ -127,10 +129,10 @@ public class LoginActivity extends AppCompatActivity {
                                         intent = new Intent(LoginActivity.this, MainActivity.class);
                                         break;
                                     case "patient":
-                                        intent = new Intent(LoginActivity.this, AccountActivity.class);
+                                        intent = new Intent(LoginActivity.this, MainActivity.class);
                                         break;
                                     case "admin":
-                                        intent = new Intent(LoginActivity.this, SearchActivity.class);
+                                        intent = new Intent(LoginActivity.this, MainActivity.class);
                                         break;
                                     default:
                                         Toast.makeText(LoginActivity.this, "Invalid role", Toast.LENGTH_LONG).show();

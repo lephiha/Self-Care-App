@@ -41,7 +41,6 @@
         <activity android:name=".Login.SignUpActivity" />
         <activity android:name=".menu.account.AccountActivity" />
         <activity android:name=".menu.SearchActivity" />
-        <activity android:name=".menu.MedicalFragment" />
         <activity android:name=".ChooseHospitalActivity"/>
         <!-- Khai báo MainActivity -->
         <activity android:name=".MainActivity"
@@ -55,6 +54,9 @@
         <activity android:name=".menu.account.CallActivity"/>
         <activity android:name=".menu.account.RateApp"/>
         <activity android:name=".menu.account.TermServiceActivity"/>
+        <activity android:name=".menu.Chat.ChatActivity"/>
+        <activity android:name=".menu.Chat.SelectUserActivity"/>
+        <activity android:name=".menu.account.InfoUserActivity"/>
 
     </application>
 

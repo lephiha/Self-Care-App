@@ -52,7 +52,7 @@ public class AccountActivity extends AppCompatActivity {
         setupNavigationView();
 
         // Lấy username từ SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
         String username = sharedPreferences.getString("username", "lephiha");
         usernameText.setText(username);
 
@@ -128,7 +128,7 @@ public class AccountActivity extends AppCompatActivity {
                         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Chia sẻ ứng dụng");
 
                         // Nội dung chia sẻ
-                        String shareMessage = "Tải ứng dụng SelfCare tại: https://www.example.com";
+                        String shareMessage = "Tải ứng dụng SelfCare tại: https://www.selfcare.com";
                         shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
 
                         // Hiển thị menu chia sẻ với các ứng dụng có thể xử lý
