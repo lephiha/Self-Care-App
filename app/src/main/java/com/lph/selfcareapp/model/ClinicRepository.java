@@ -1,10 +1,12 @@
 package com.lph.selfcareapp.model;
 
+import android.app.Application;
+import android.nfc.Tag;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.lph.selfcareapp.serviceAPI.ApiService;
+import com.lph.selfcareapp.serviceAPI.ClinicApiService;
 import com.lph.selfcareapp.serviceAPI.RetrofitInstance;
 
 import retrofit2.Call;
@@ -12,7 +14,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ClinicRepository {
-    private ApiService clinicApiService;
+    private ClinicApiService clinicApiService;
     public ClinicRepository(){
         this.clinicApiService = new RetrofitInstance().getService();
     }

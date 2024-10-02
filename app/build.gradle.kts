@@ -31,13 +31,11 @@ android {
     }
 
     buildFeatures{
-        dataBinding = true
-        viewBinding = true;
+        dataBinding = true;
     }
 }
 
 dependencies {
-    implementation("com.github.miteshpithadiya:SearchableSpinner:master")
     //navigation
     implementation ("com.github.ittianyu:BottomNavigationViewEx:1.2.4")
 //    retrofit
@@ -47,8 +45,6 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
     testImplementation(libs.junit)
     implementation("com.android.volley:volley:1.2.1")
     androidTestImplementation(libs.ext.junit)
@@ -58,6 +54,6 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.14.2")
     // Skip this if you don't want to use integration libraries or configure Glide.
     annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
-    implementation("com.applandeo:material-calendar-view:1.9.2")
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
 
 }
