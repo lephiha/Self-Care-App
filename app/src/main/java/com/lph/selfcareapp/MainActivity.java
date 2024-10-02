@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,19 +16,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lph.selfcareapp.Utils.BottomNavigationViewHelper;
-import com.lph.selfcareapp.menu.HomeFragment;
-import com.lph.selfcareapp.menu.AccountActivity;
+import com.lph.selfcareapp.menu.Chat.ChatActivity;
 import com.lph.selfcareapp.menu.MedicalFragment;
 import com.lph.selfcareapp.menu.SearchActivity;
+import com.lph.selfcareapp.menu.account.AccountActivity;
+import com.lph.selfcareapp.menu.account.InfoUserActivity;
 
 
 public class MainActivity extends AppCompatActivity {
     Button bookingBtn;
     TextView fullnameTextView;
     BottomNavigationViewEx bottomNavigationView;
+    ImageView avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         fullnameTextView = findViewById(R.id.fullnameTextView);
         bottomNavigationView = findViewById(R.id.bottomNavBar);
         bookingBtn = findViewById(R.id.bookingBtn);
+        avatar = findViewById(R.id.avatar);
         setupNavigationView();
         // get db SharedPre
         SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
@@ -51,43 +54,49 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplication(), ChooseHospitalActivity.class));
             }
         });
-        // xet home là mặc định
-//        loadFragment (new HomeFragment());
-//        // click chọn bottom Nav
-//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                Fragment selectedFragment = null;
-//                int itemId = item.getItemId();
-//
-////                switch (item.getItemId()){
-////                    case R.id.nav_home:
-////
-////                }
-//                if (itemId == R.id.nav_home) {
-//                    selectedFragment = new HomeFragment();
-//                } else if (itemId == R.id.nav_search) {
-//                    selectedFragment = new SearchActivity();
-//                } else if (itemId == R.id.nav_file) {
-//                    selectedFragment = new MedicalFragment();
-//                } else if (itemId == R.id.nav_account) {
-//                    selectedFragment = new AccountActivity();
-//                }
-//
-//                if(selectedFragment != null) {
-//                    loadFragment(selectedFragment);
-//                }
-//                return true;
-//            }
-//        });
+        // Xử lý sự kiện khi nhấn vào avatar (chuyển đến trang tài khoản)
+        avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, InfoUserActivity.class));
+            }
+        });
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationViewEx.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.nav_search) {
+                    // Xử lý khi nhấn vào Tìm kiếm
+                    startActivity(new Intent(MainActivity.this, SearchActivity.class));
+                    return true;
+                } else if (item.getItemId() == R.id.nav_file) {
+                    // Xử lý khi nhấn vào Hồ sơ (thay Fragment)
+                    loadFragment(new MedicalFragment()); // Gọi loadFragment
+                    return true;
+                } else if (item.getItemId() == R.id.nav_chat) {
+                    // Xử lý khi nhấn vào Live Chat
+                    startActivity(new Intent(MainActivity.this, ChatActivity.class));
+                    return true;
+                } else if (item.getItemId() == R.id.nav_account) {
+                    // Xử lý khi nhấn vào Tài khoản
+                    startActivity(new Intent(MainActivity.this, AccountActivity.class));
+                    return true;
+                }
+                return false;
+                }
+
+        });
+
+
     }
 
-//    private void loadFragment(Fragment fragment) {
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.fragment_container, fragment);
-//        transaction.addToBackStack(null);
-//        transaction.commit();
-//    }
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null); // Cho phép quay lại fragment trước đó
+        transaction.commit();
+    }
+
+
 
     private void setupNavigationView(){
         Log.d("Main", "setupTopNavigationView: setting up TopNavigationView");
@@ -98,4 +107,5 @@ public class MainActivity extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
     }
+
 }

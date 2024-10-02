@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,9 +30,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
-    TextInputEditText fullnameEditText,emailEditText, phoneEditText, usernameEditText, passwordEditText, confirmPasswordEditText;
+    TextInputEditText fullnameEditText, emailEditText, phoneEditText, usernameEditText, passwordEditText, confirmPasswordEditText;
     TextView loginRedirect;
     Button signUpButton;
+    Spinner roleSpinner;
 
     String url_register = "http://192.168.0.107/selfcare/register.php";
 
@@ -70,6 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
         loginRedirect = findViewById(R.id.loginRedirect);
         signUpButton = findViewById(R.id.signUpButton);
+        roleSpinner = findViewById(R.id.roleSpinner);
     }
 
     private void GoRegister() {
@@ -82,6 +85,7 @@ public class SignUpActivity extends AppCompatActivity {
         String username = usernameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
         String confirmPassword = confirmPasswordEditText.getText().toString().trim();
+        String role = roleSpinner.getSelectedItem().toString();  // Lấy vai trò từ Spinner
 
         // Kiểm tra dữ liệu đầu vào
         if (fullname.isEmpty()) {
@@ -126,15 +130,13 @@ public class SignUpActivity extends AppCompatActivity {
                             if (success.equals("1")) {
                                 progressDialog.dismiss();
                                 Toast.makeText(SignUpActivity.this, "Register Successful", Toast.LENGTH_LONG).show();
-                                //
                                 Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                                 startActivity(intent);
                                 finish();
                             } else if (success.equals("2")) {
                                 progressDialog.dismiss();
-                                Toast.makeText(SignUpActivity.this, "Username Already Taken",Toast.LENGTH_LONG).show();
-                            }
-                            else {
+                                Toast.makeText(SignUpActivity.this, "Username Already Taken", Toast.LENGTH_LONG).show();
+                            } else {
                                 progressDialog.dismiss();
                                 Toast.makeText(SignUpActivity.this, "Registration Failed", Toast.LENGTH_LONG).show();
                             }
@@ -160,6 +162,7 @@ public class SignUpActivity extends AppCompatActivity {
                 params.put("phone", phone);
                 params.put("username", username);
                 params.put("password", password);
+                params.put("utype", role);  // Gửi role
                 return params;
             }
         };
@@ -168,3 +171,4 @@ public class SignUpActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 }
+

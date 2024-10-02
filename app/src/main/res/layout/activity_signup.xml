@@ -159,6 +159,25 @@
             />
 
     </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/selectRoleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Role"
+        android:textSize="16sp"
+        android:textColor="#4D2CBA"
+        android:layout_below="@+id/confirmPasswordInput"
+        android:layout_marginTop="8dp"
+        />
+
+    <Spinner
+        android:id="@+id/roleSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/selectRoleLabel"
+        android:layout_marginTop="8dp"
+        android:entries="@array/role_options"
+        android:background="@color/blue_btn_bg_pressed_color"/>
 
     <Button
         android:id="@+id/signUpButton"
@@ -167,7 +186,7 @@
         android:text="Sign Up"
         android:textColor="#FFFFFF"
         android:backgroundTint="#4D2CBA"
-        android:layout_below="@id/confirmPasswordInput"
+        android:layout_below="@id/roleSpinner"
         android:layout_marginTop="8dp" />
 
     <TextView

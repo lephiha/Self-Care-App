@@ -7,6 +7,14 @@
 
     </item>
 
+
+    <item
+        android:id="@+id/nav_search"
+        android:icon="@drawable/search_24px"
+        android:title="Tìm kiếm">
+
+    </item>
+
     <item
         android:id="@+id/nav_file"
         android:icon="@drawable/file"
@@ -15,9 +23,9 @@
     </item>
 
     <item
-        android:id="@+id/nav_search"
-        android:icon="@drawable/search_24px"
-        android:title="Tìm kiếm">
+        android:id="@+id/nav_chat"
+        android:icon="@drawable/baseline_message_24"
+        android:title="Live Chat">
 
     </item>
 

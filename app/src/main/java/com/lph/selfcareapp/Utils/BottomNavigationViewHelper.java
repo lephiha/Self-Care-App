@@ -11,7 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lph.selfcareapp.MainActivity;
 import com.lph.selfcareapp.R;
-import com.lph.selfcareapp.menu.AccountActivity;
+import com.lph.selfcareapp.menu.account.AccountActivity;
 import com.lph.selfcareapp.menu.MedicalFragment;
 import com.lph.selfcareapp.menu.SearchActivity;
 
