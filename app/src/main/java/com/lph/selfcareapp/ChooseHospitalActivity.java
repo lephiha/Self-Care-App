@@ -1,7 +1,9 @@
 package com.lph.selfcareapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
@@ -21,16 +23,18 @@ import com.lph.selfcareapp.databinding.ActivityChooseHospitalBinding;
 import com.lph.selfcareapp.model.Clinic;
 import com.lph.selfcareapp.model.ClinicList;
 import com.lph.selfcareapp.view.ClinicAdapter;
+import com.lph.selfcareapp.viewmodel.BookDoctorListener;
 import com.lph.selfcareapp.viewmodel.ClinicViewModel;
 
 import java.util.List;
 
-public class ChooseHospitalActivity extends AppCompatActivity {
+public class ChooseHospitalActivity extends AppCompatActivity implements BookDoctorListener {
     private ClinicList clinics;
     private ActivityChooseHospitalBinding binding;
     private RecyclerView recyclerView;
     private ClinicAdapter clinicAdapter;
     private ClinicViewModel viewModel;
+    Button bookDoctorBtn;
     ImageButton back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,13 @@ public class ChooseHospitalActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this)
                 .get(ClinicViewModel.class);
         back = findViewById(R.id.back);
+//        bookDoctorBtn = findViewById(R.id.bookDoctorBtn);
+//        bookDoctorBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getApplication(), ChooseDoctorActivity.class));
+//            }
+//        });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,10 +74,17 @@ public class ChooseHospitalActivity extends AppCompatActivity {
     }
 
     public void displayClinicsInRecyclerview(){
-        clinicAdapter = new ClinicAdapter(this, clinics);
+        clinicAdapter = new ClinicAdapter(this, clinics,this::onItemClicked);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(clinicAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));;
-//        clinicAdapter.notifyDataSetChanged();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        clinicAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClicked(int id) {
+        Intent intent = new Intent(getApplication(), ChooseDoctorActivity.class);
+        intent.putExtra("chief id", id);
+        startActivity(intent);
     }
 }
