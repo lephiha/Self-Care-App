@@ -40,6 +40,10 @@ dependencies {
     implementation("com.github.miteshpithadiya:SearchableSpinner:master")
     //navigation
     implementation ("com.github.ittianyu:BottomNavigationViewEx:1.2.4")
+    // Navigation component
+    implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
+
 //    retrofit
     implementation("com.squareup.retrofit2:converter-gson:2.11.0");
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
