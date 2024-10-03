@@ -18,32 +18,43 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SelfCareApp"
         tools:targetApi="31">
+
         <activity
             android:name=".ConfirmActivity"
             android:exported="false" />
         <activity
             android:name=".ChooseDoctorActivity"
             android:exported="false"
-            android:theme="@style/Theme.SelfCareApp" /> <!-- Khai báo SplashActivity là màn hình khởi động -->
+            android:theme="@style/Theme.SelfCareApp" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Login.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Khai báo LoginActivity -->
-        <activity android:name=".Login.LoginActivity" /> <!-- Khai báo SignUpActivity -->
+        </activity>
+        <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Login.SignUpActivity" />
-        <activity android:name=".menu.AccountActivity" />
+        <activity android:name=".menu.account.AccountActivity" />
         <activity android:name=".menu.SearchActivity" />
         <activity android:name=".menu.MedicalFragment" />
         <activity android:name=".ChooseHospitalActivity" /> <!-- Khai báo MainActivity -->
         <activity
-            android:name=".Login.SplashActivity"
-            android:exported="true"></activity>
+            android:name=".MainActivity"
+            android:exported="true">
+
+        </activity>
         <activity android:name=".Login.ForgotPassActivity" />
+        <activity android:name=".menu.account.InfoUserActivity"/>
+        <activity android:name=".menu.account.TermServiceActivity"/>
+        <activity android:name=".menu.account.PrivacyPolicyActivity"/>
+        <activity android:name=".menu.account.RateApp"/>
+        <activity android:name=".menu.account.CallActivity"/>
+        <activity android:name=".menu.account.UsePolicyActivity"/>
+        <activity android:name=".menu.Chat.ChatActivity"/>
+
     </application>
 
 </manifest>
