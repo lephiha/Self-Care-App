@@ -13,7 +13,7 @@ import com.lph.selfcareapp.MainActivity;
 import com.lph.selfcareapp.R;
 import com.lph.selfcareapp.menu.account.AccountActivity;
 import com.lph.selfcareapp.menu.MedicalFragment;
-import com.lph.selfcareapp.menu.SearchActivity;
+import com.lph.selfcareapp.menu.MedicalTicketActivity;
 
 public class BottomNavigationViewHelper {
     private static final String TAG = "TopNavigationViewHelper";
@@ -35,8 +35,8 @@ public class BottomNavigationViewHelper {
                 } else if (itemId == R.id.nav_file) {
                     Intent intent1 = new Intent(context, MedicalFragment.class);
                     context.startActivity(intent1);
-                } else if (itemId == R.id.nav_search) {
-                    Intent intent3 = new Intent(context, SearchActivity.class);
+                } else if (itemId == R.id.nav_ticket) {
+                    Intent intent3 = new Intent(context, MedicalTicketActivity.class);
                     context.startActivity(intent3);
                 } else if (itemId == R.id.nav_account) {
                     Intent intent4 = new Intent(context, AccountActivity.class);

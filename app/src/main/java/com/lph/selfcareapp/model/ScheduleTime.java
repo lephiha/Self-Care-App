@@ -3,7 +3,9 @@ package com.lph.selfcareapp.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ScheduleTime {
+import java.io.Serializable;
+
+public class ScheduleTime implements Serializable {
     @SerializedName("schedule_id")
     @Expose
     private Integer scheduleId;

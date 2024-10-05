@@ -20,7 +20,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lph.selfcareapp.Utils.BottomNavigationViewHelper;
 import com.lph.selfcareapp.menu.Chat.ChatActivity;
 import com.lph.selfcareapp.menu.MedicalFragment;
-import com.lph.selfcareapp.menu.SearchActivity;
+import com.lph.selfcareapp.menu.MedicalTicketActivity;
 import com.lph.selfcareapp.menu.account.AccountActivity;
 import com.lph.selfcareapp.menu.account.InfoUserActivity;
 
@@ -64,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationViewEx.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.nav_search) {
+                if (item.getItemId() == R.id.nav_ticket) {
                     // Xử lý khi nhấn vào Tìm kiếm
-                    startActivity(new Intent(MainActivity.this, SearchActivity.class));
+                    startActivity(new Intent(MainActivity.this, MedicalTicketActivity.class));
                     return true;
                 } else if (item.getItemId() == R.id.nav_file) {
                     // Xử lý khi nhấn vào Hồ sơ (thay Fragment)
