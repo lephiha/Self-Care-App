@@ -2,9 +2,7 @@ package com.lph.selfcareapp.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -14,13 +12,13 @@ import com.lph.selfcareapp.R;
 import com.lph.selfcareapp.databinding.ClinicListItemBinding;
 import com.lph.selfcareapp.model.Clinic;
 import com.lph.selfcareapp.model.ClinicList;
-import com.lph.selfcareapp.viewmodel.BookDoctorListener;
+import com.lph.selfcareapp.viewmodel.ChooseClinicListener;
 
 public class ClinicAdapter extends RecyclerView.Adapter<ClinicAdapter.CLinicHolder>{
     private Context context;
     private ClinicList clinicList;
-    private BookDoctorListener listener;
-    public ClinicAdapter(Context context, ClinicList clinicList, BookDoctorListener listener){
+    private ChooseClinicListener listener;
+    public ClinicAdapter(Context context, ClinicList clinicList, ChooseClinicListener listener){
         this.context = context;
         this.clinicList = clinicList;
         this.listener = listener;
@@ -43,7 +41,7 @@ public class ClinicAdapter extends RecyclerView.Adapter<ClinicAdapter.CLinicHold
         Clinic clinic = clinicList.get(position);
         holder.clinicListItemBinding.setClinic(clinic);
         holder.clinicListItemBinding.bookDoctorBtn.setOnClickListener(
-                v -> listener.onItemClicked(clinic.getChief_id())
+                v -> listener.onItemClicked(clinic)
         );
     }
 

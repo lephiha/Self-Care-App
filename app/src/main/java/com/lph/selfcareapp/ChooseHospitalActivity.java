@@ -8,14 +8,10 @@ import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,12 +19,10 @@ import com.lph.selfcareapp.databinding.ActivityChooseHospitalBinding;
 import com.lph.selfcareapp.model.Clinic;
 import com.lph.selfcareapp.model.ClinicList;
 import com.lph.selfcareapp.view.ClinicAdapter;
-import com.lph.selfcareapp.viewmodel.BookDoctorListener;
+import com.lph.selfcareapp.viewmodel.ChooseClinicListener;
 import com.lph.selfcareapp.viewmodel.ClinicViewModel;
 
-import java.util.List;
-
-public class ChooseHospitalActivity extends AppCompatActivity implements BookDoctorListener {
+public class ChooseHospitalActivity extends AppCompatActivity implements ChooseClinicListener {
     private ClinicList clinics;
     private ActivityChooseHospitalBinding binding;
     private RecyclerView recyclerView;
@@ -82,9 +76,9 @@ public class ChooseHospitalActivity extends AppCompatActivity implements BookDoc
     }
 
     @Override
-    public void onItemClicked(int id) {
+    public void onItemClicked(Clinic clinic) {
         Intent intent = new Intent(getApplication(), ChooseDoctorActivity.class);
-        intent.putExtra("chief id", id);
+        intent.putExtra("clinic", clinic);
         startActivity(intent);
     }
 }

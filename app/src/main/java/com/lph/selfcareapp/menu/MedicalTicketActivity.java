@@ -9,16 +9,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-import com.lph.selfcareapp.MainActivity;
 import com.lph.selfcareapp.R;
 import com.lph.selfcareapp.Utils.BottomNavigationViewHelper;
 
 
-public class SearchActivity extends AppCompatActivity {
+public class MedicalTicketActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_search);
+        setContentView(R.layout.ticket_activity);
         setupNavigationView();
     }
 
@@ -26,9 +25,9 @@ public class SearchActivity extends AppCompatActivity {
         Log.d("Main", "setupTopNavigationView: setting up TopNavigationView");
         BottomNavigationViewEx tvEx = findViewById(R.id.bottomNavBar);
         BottomNavigationViewHelper.setupTopNavigationView(tvEx);
-        BottomNavigationViewHelper.enableNavigation(SearchActivity.this, tvEx);
+        BottomNavigationViewHelper.enableNavigation(MedicalTicketActivity.this, tvEx);
         Menu menu = tvEx.getMenu();
-        MenuItem menuItem = menu.getItem(2);
+        MenuItem menuItem = menu.getItem(1);
         menuItem.setChecked(true);
     }
 }

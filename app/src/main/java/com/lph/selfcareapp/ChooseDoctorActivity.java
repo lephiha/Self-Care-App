@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.applandeo.materialcalendarview.CalendarDay;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.listeners.OnCalendarDayClickListener;
+import com.lph.selfcareapp.model.Clinic;
 import com.lph.selfcareapp.model.Doctor;
 import com.lph.selfcareapp.model.DoctorList;
 import com.lph.selfcareapp.model.ScheduleTime;
@@ -70,8 +71,11 @@ public class ChooseDoctorActivity extends AppCompatActivity implements ChooseDoc
     TextView chooseTime;
     TimeAdapter timeAdapter;
     int docId;
+    Doctor chosenDoctor;
     Dialog timeDialog;
     Button continueBtn;
+    Clinic clinic;
+    Specialty specialty;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +83,8 @@ public class ChooseDoctorActivity extends AppCompatActivity implements ChooseDoc
         spinner = findViewById(R.id.speSpinner);
         specialtyViewModel = new ViewModelProvider(this)
                     .get(SpecialtyViewModel.class);
-        chiefId = getIntent().getIntExtra("chief id",0);
+        clinic = (Clinic)getIntent().getSerializableExtra("clinic");
+        chiefId = clinic.getChief_id();
         chooseDoctor = findViewById(R.id.chooseDoctor);
         chooseDate = findViewById(R.id.chooseDate);
         chooseTime = findViewById(R.id.chooseTime);
@@ -110,6 +115,7 @@ public class ChooseDoctorActivity extends AppCompatActivity implements ChooseDoc
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             int speId = specialties.get(position).getId();
+                            specialty = specialties.get(position);
                             chooseDoctor.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -179,6 +185,7 @@ public class ChooseDoctorActivity extends AppCompatActivity implements ChooseDoc
 
     @Override
     public void onItemClicked(Doctor doctor) {
+        chosenDoctor = doctor;
         docId = doctor.getDocId();
         chooseDoctor.setText(doctor.getAcademicRank() + " " + doctor.getDocname());
         chooseTime.setText("");
@@ -271,6 +278,12 @@ public class ChooseDoctorActivity extends AppCompatActivity implements ChooseDoc
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ChooseDoctorActivity.this, ConfirmActivity.class);
+                intent.putExtra("doctor", chosenDoctor);
+                intent.putExtra("schedule", scheduleTime);
+                intent.putExtra("clinic",clinic);
+                intent.putExtra("specialty", specialty.getSname());
+                intent.putExtra("time",chooseTime.getText().toString());
+                intent.putExtra("date", chooseDate.getText().toString());
                 startActivity(intent);
             }
         });

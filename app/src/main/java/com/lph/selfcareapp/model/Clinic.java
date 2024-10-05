@@ -10,7 +10,9 @@ import com.bumptech.glide.Glide;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Clinic extends BaseObservable {
+import java.io.Serializable;
+
+public class Clinic extends BaseObservable implements Serializable {
     @SerializedName("clinic_id")
     @Expose
     private int clinic_id;

@@ -13,7 +13,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.lph.selfcareapp.R;
 
-public class Doctor extends BaseObservable {
+import java.io.Serializable;
+
+public class Doctor extends BaseObservable implements Serializable {
     @SerializedName("doc_id")
     @Expose
     private Integer docId;
