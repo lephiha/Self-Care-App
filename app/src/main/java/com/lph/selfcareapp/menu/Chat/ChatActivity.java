@@ -68,15 +68,26 @@ public class ChatActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONArray jsonArray = new JSONArray(response);
-                            messageList.clear();  // Xóa danh sách trước khi thêm mới
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                String sender = jsonObject.getString("sender");
-                                String message = jsonObject.getString("message");
-                                String timestamp = jsonObject.getString("timestamp");
+                            // Chuyển đổi phản hồi thành JSONObject trước
+                            JSONObject jsonResponse = new JSONObject(response);
 
-                                messageList.add(new Message(sender, message, timestamp));
+                            // Kiểm tra thành công
+                            if (jsonResponse.getInt("success") == 1) {
+                                // Nếu thành công, lấy mảng tin nhắn
+                                JSONArray jsonArray = jsonResponse.getJSONArray("data");  // Thay "data" bằng tên trường thực tế nếu khác
+                                messageList.clear();  // Xóa danh sách trước khi thêm mới
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                    String sender = jsonObject.getString("sender");
+                                    String message = jsonObject.getString("message");
+                                    String timestamp = jsonObject.getString("timestamp");
+
+                                    messageList.add(new Message(sender, message, timestamp));
+                                }
+                            } else {
+                                // Xử lý thông báo lỗi
+                                String message = jsonResponse.getString("message");
+                                Log.e("ChatActivity", message); // Log lỗi hoặc hiển thị cho người dùng
                             }
                             messageAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
@@ -101,6 +112,7 @@ public class ChatActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
 
     private void sendMessage() {
         final String message = editTextMessage.getText().toString().trim();

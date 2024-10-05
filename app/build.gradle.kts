@@ -64,4 +64,6 @@ dependencies {
     annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
     implementation("com.applandeo:material-calendar-view:1.9.2")
 
+    implementation ("androidx.fragment:fragment:1.3.6")
+
 }
