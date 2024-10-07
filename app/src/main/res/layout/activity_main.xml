@@ -96,6 +96,7 @@
             android:text="Xem kết quả khám bệnh"
             android:textColor="@color/black" />
 
+<<<<<<< HEAD
         <!-- Nút Tư vấn  -->
         <LinearLayout
             android:layout_width="160dp"
@@ -121,6 +122,19 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
+=======
+        <!-- Nút Tư vấn khám qua video -->
+        <Button
+            android:id="@+id/examBtn"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/baseline_video_call_24"
+            android:drawablePadding="10dp"
+            android:layout_margin="10dp"
+            android:text="Tư vấn khám qua video"
+            android:textColor="@color/black" />
+>>>>>>> 251833204d89412ac7f67bf0437642619ba19cf3
 
         <!-- Nút Gói sức khỏe toàn diện -->
         <Button

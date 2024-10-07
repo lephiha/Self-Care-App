@@ -23,14 +23,21 @@ import com.lph.selfcareapp.menu.MedicalFragment;
 import com.lph.selfcareapp.menu.MedicalTicketActivity;
 import com.lph.selfcareapp.menu.account.AccountActivity;
 import com.lph.selfcareapp.menu.account.InfoUserActivity;
+<<<<<<< HEAD
 import com.lph.selfcareapp.tuvanOnline.TuvanActivity;
+=======
+>>>>>>> 251833204d89412ac7f67bf0437642619ba19cf3
 
 
 public class MainActivity extends AppCompatActivity {
     Button bookingBtn;
     TextView fullnameTextView;
     BottomNavigationViewEx bottomNavigationView;
+<<<<<<< HEAD
     ImageView avatar, tuvanOnline;
+=======
+    ImageView avatar;
+>>>>>>> 251833204d89412ac7f67bf0437642619ba19cf3
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +49,10 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavBar);
         bookingBtn = findViewById(R.id.bookingBtn);
         avatar = findViewById(R.id.avatar);
+<<<<<<< HEAD
         tuvanOnline = findViewById(R.id.tuvanOnline);
+=======
+>>>>>>> 251833204d89412ac7f67bf0437642619ba19cf3
         setupNavigationView();
         // get db SharedPre
         SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
@@ -63,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, InfoUserActivity.class));
             }
         });
+<<<<<<< HEAD
         // click tu van online
         tuvanOnline.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, TuvanActivity.class));
             }
         });
+=======
+>>>>>>> 251833204d89412ac7f67bf0437642619ba19cf3
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationViewEx.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
