@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationViewHelper.setupTopNavigationView(tvEx);
         BottomNavigationViewHelper.enableNavigation(MainActivity.this, tvEx);
         Menu menu = tvEx.getMenu();
-        MenuItem menuItem = menu.getItem(0);
+        MenuItem menuItem = menu.getItem(0 );
         menuItem.setChecked(true);
     }
 

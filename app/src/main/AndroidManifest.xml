@@ -38,7 +38,7 @@
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Login.SignUpActivity" />
         <activity android:name=".menu.account.AccountActivity" />
-        <activity android:name=".menu.SearchActivity" />
+
         <activity android:name=".menu.MedicalFragment" />
         <activity android:name=".ChooseHospitalActivity" /> <!-- Khai báo MainActivity -->
         <activity
