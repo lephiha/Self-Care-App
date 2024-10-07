@@ -54,11 +54,10 @@
         <activity android:name=".menu.account.CallActivity"/>
         <activity android:name=".menu.account.UsePolicyActivity"/>
         <activity android:name=".menu.Chat.ChatActivity"/>
-<<<<<<< HEAD
+
         <activity android:name=".tuvanOnline.TuvanActivity"/>
         <activity android:name=".tuvanOnline.AskQuestionActivity"/>
-=======
->>>>>>> 251833204d89412ac7f67bf0437642619ba19cf3
+
 
     </application>
 

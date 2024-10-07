@@ -21,25 +21,25 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
-    @GET("book-doctor/clinvsic.php")
+    @GET("selfcare/clinvsic.php")
     Call<ClinicList> getAllClinics();
 
-    @GET("book-doctor/specialties.php")
+    @GET("selfcare/specialties.php")
     Call<SpecialtyList> getAllSpecialties();
 
-    @GET("book-doctor/doctor.php")
+    @GET("selfcare/doctor.php")
     Call<List<Doctor>> getAllDoctor(@Query("chief_id") int chiefId,
                                          @Query("spe_id") int speId);
 
-    @GET("book-doctor/time.php")
+    @GET("selfcare/time.php")
     Call<List<ScheduleTime>> getScheduleTime(@Query("docid") int doctorId,
                                              @Query("date") String date);
     @FormUrlEncoded
-    @POST("book-doctor/vnpay_create_payment.php")
+    @POST("selfcare/vnpay_create_payment.php")
     Call<ReturnData> createPayment(@Field("amount") int amount,
                                    @Field("order_id") int orderId,
                                     @Field("order_info") String orderInfo);
 
-    @GET("book-doctor/appointment.php")
+    @GET("selfcare/appointment.php")
     Call<List<Appointment>> getAppointment(@Query("pid") int pid);
 }

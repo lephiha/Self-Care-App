@@ -51,7 +51,6 @@
         <item>Patient</item>
         <item>Admin</item>
     </string-array>
-<<<<<<< HEAD
     <!-- Chuyên khoa -->
     <string name="chon_chuyen_khoa">Chọn chuyên khoa</string>
     <string-array name="chuyen_khoa_array">
@@ -79,6 +78,5 @@
         <item>46-60</item>
         <item>60+</item>
     </string-array>
-=======
->>>>>>> 251833204d89412ac7f67bf0437642619ba19cf3
+
 </resources>

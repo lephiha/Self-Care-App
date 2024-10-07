@@ -35,11 +35,9 @@ public class SignUpActivity extends AppCompatActivity {
     Button signUpButton;
     Spinner roleSpinner;
 
-<<<<<<< HEAD
-    String url_register = "http://192.168.56.1/selfcare/register.php";
-=======
+
     String url_register = "http://192.168.0.107/selfcare/register.php";
->>>>>>> 251833204d89412ac7f67bf0437642619ba19cf3
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -36,11 +36,8 @@ public class LoginActivity extends AppCompatActivity {
     Button loginBtn;
     Spinner roleSpiner;
 
-<<<<<<< HEAD
-    String url_login = "http://192.168.56.1/selfcare/login.php";
-=======
+
     String url_login = "http://192.168.0.107/selfcare/login.php";
->>>>>>> 251833204d89412ac7f67bf0437642619ba19cf3
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

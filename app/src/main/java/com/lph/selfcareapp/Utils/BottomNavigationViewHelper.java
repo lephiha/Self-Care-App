@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lph.selfcareapp.MainActivity;
 import com.lph.selfcareapp.R;
+import com.lph.selfcareapp.menu.Chat.ChatActivity;
 import com.lph.selfcareapp.menu.account.AccountActivity;
 import com.lph.selfcareapp.menu.MedicalFragment;
 import com.lph.selfcareapp.menu.MedicalTicketActivity;
@@ -38,9 +39,13 @@ public class BottomNavigationViewHelper {
                 } else if (itemId == R.id.nav_ticket) {
                     Intent intent3 = new Intent(context, MedicalTicketActivity.class);
                     context.startActivity(intent3);
-                } else if (itemId == R.id.nav_account) {
-                    Intent intent4 = new Intent(context, AccountActivity.class);
+                } else if (itemId == R.id.nav_chat) {
+                    Intent intent4 = new Intent(context, ChatActivity.class);
                     context.startActivity(intent4);
+                }
+                else if (itemId == R.id.nav_account) {
+                    Intent intent5 = new Intent(context, AccountActivity.class);
+                    context.startActivity(intent5);
                 }
 
                 return false;
