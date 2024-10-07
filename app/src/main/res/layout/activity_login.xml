@@ -1,0 +1,148 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        />
+
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome Back"
+        android:textSize="24sp"
+        android:textColor="#6A1B9A"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:id="@+id/selfCareText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="#6a1b9a"
+        android:layout_below="@+id/welcomeText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/usernameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:boxBackgroundMode="outline"
+        app:counterMaxLength="20"
+        app:boxBackgroundColor="@color/white"
+        app:helperTextEnabled="true"
+        app:helperText="Enter User Name"
+        app:helperTextTextColor="@color/brown_200"
+        android:layout_below="@+id/logo">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="User Name"
+            android:drawableStart="@drawable/person"
+            android:drawablePadding="12dp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordTextInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:boxBackgroundMode="outline"
+        app:boxBackgroundColor="@color/white"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:helperTextEnabled="true"
+        app:helperText="Enter Password"
+        app:helperTextTextColor="@color/brown_200"
+        app:endIconMode="password_toggle"
+        android:layout_below="@+id/usernameInput">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPassword"
+            android:textSize="16sp"
+            android:hint="Password"
+            android:drawableStart="@drawable/baseline_lock_24"
+            android:drawablePadding="12dp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Spinner for Role Selection -->
+    <Spinner
+        android:id="@+id/roleSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passwordTextInput"
+        android:layout_margin="10dp"
+        android:entries="@array/role_options"
+        android:background="@color/blue_btn_bg_pressed_color"/>
+
+    <TextView
+        android:id="@+id/forgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password?"
+        android:textSize="14sp"
+        android:textColor="#6A1B9A"
+        android:minHeight="48dp"
+        android:layout_below="@+id/roleSpinner"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:visibility="gone"
+        android:layout_below="@id/forgotPassword"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textColor="#fff"
+        android:backgroundTint="#6a1b9a"
+        android:layout_below="@+id/tv_error"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        android:id="@+id/signUpRedirect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't have an account? Sign Up"
+        android:textSize="14sp"
+        android:layout_below="@id/loginBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textColor="#4D2CBA"/>
+
+</RelativeLayout>

@@ -1,0 +1,7 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@android:color/white"/> <!-- Màu nền cho avatar -->
+    <corners android:radius="50dp"/> <!-- Làm cho avatar có hình tròn -->
+    <stroke
+        android:width="2dp"
+        android:color="#ffffff"/> <!-- Đường viền trắng -->
+</shape>

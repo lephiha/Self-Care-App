@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".tuvanOnline.AskQuestionActivity">
+
+    <!-- Spinner chọn chuyên khoa -->
+    <Spinner
+        android:id="@+id/spinnerChuyenKhoa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:prompt="@string/chon_chuyen_khoa" />
+
+    <!-- Spinner chọn giới tính -->
+    <Spinner
+        android:id="@+id/spinnerGioiTinh"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/spinnerChuyenKhoa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:prompt="@string/chon_gioi_tinh" />
+
+    <!-- Spinner chọn độ tuổi -->
+    <Spinner
+        android:id="@+id/spinnerDoTuoi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/spinnerGioiTinh"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:prompt="@string/chon_do_tuoi" />
+
+    <!-- EditText để nhập câu hỏi -->
+    <EditText
+        android:id="@+id/edtCauHoi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Viết câu hỏi của bạn"
+        app:layout_constraintTop_toBottomOf="@id/spinnerDoTuoi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:minHeight="100dp"
+        android:gravity="top"
+        android:padding="8dp"
+        android:background="@drawable/rounded_edittext" />
+
+    <!-- Nút đặt câu hỏi -->
+    <Button
+        android:id="@+id/btnDatCauHoi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Đặt câu hỏi"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
