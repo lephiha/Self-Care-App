@@ -60,7 +60,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- ViewFlipper nằm giữa Avatar và GridLayout -->
     <ViewFlipper
         android:id="@+id/viewFlipper"
         android:layout_width="match_parent"

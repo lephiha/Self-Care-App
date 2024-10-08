@@ -2,6 +2,7 @@ package com.lph.selfcareapp.tuvanOnline;
 
 import static androidx.databinding.DataBindingUtil.setContentView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,7 +12,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import com.lph.selfcareapp.MainActivity;
 import com.lph.selfcareapp.R;
 
 public class AskQuestionActivity extends AppCompatActivity {
@@ -53,6 +56,20 @@ public class AskQuestionActivity extends AppCompatActivity {
                 Toast.makeText(AskQuestionActivity.this, "Câu hỏi đã được gửi thành công!", Toast.LENGTH_SHORT).show();
 
                 // Quay lại trang tư vấn online sau khi đặt câu hỏi
+                finish();
+            }
+        });
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+
+        findViewById(R.id.buttonBack).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(AskQuestionActivity.this, TuvanActivity.class);
+                startActivity(intent);
                 finish();
             }
         });

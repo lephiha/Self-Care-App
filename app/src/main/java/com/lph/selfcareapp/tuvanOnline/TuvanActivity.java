@@ -7,10 +7,14 @@ import android.widget.Button;
 import androidx.appcompat.widget.SearchView; // Sử dụng SearchView của androidx
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.lph.selfcareapp.MainActivity;
 import com.lph.selfcareapp.R;
+import com.lph.selfcareapp.menu.account.AccountActivity;
+import com.lph.selfcareapp.menu.account.PrivacyPolicyActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +71,19 @@ public class TuvanActivity extends AppCompatActivity {
                 // Lọc danh sách câu hỏi dựa trên nội dung tìm kiếm
                 adapter.getFilter().filter(newText);
                 return true;
+            }
+        });
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+
+        findViewById(R.id.buttonBack).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(TuvanActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
