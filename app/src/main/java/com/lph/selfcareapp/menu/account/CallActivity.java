@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat;
 public class CallActivity extends AppCompatActivity {
 
     private static final int REQUEST_CALL_PERMISSION = 1;
-    private static final String HOTLINE_NUMBER = "19002115";
+    private static final String HOTLINE_NUMBER = "19001234";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

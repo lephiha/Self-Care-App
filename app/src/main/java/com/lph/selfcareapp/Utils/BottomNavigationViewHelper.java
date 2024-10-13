@@ -13,7 +13,7 @@ import com.lph.selfcareapp.MainActivity;
 import com.lph.selfcareapp.R;
 import com.lph.selfcareapp.menu.Chat.ChatActivity;
 import com.lph.selfcareapp.menu.account.AccountActivity;
-import com.lph.selfcareapp.menu.MedicalFragment;
+import com.lph.selfcareapp.menu.Medical.MedicalActivity;
 import com.lph.selfcareapp.menu.MedicalTicketActivity;
 
 public class BottomNavigationViewHelper {
@@ -34,7 +34,7 @@ public class BottomNavigationViewHelper {
                     Intent intent2 = new Intent(context, MainActivity.class);
                     context.startActivity(intent2);
                 } else if (itemId == R.id.nav_file) {
-                    Intent intent1 = new Intent(context, MedicalFragment.class);
+                    Intent intent1 = new Intent(context, MedicalActivity.class);
                     context.startActivity(intent1);
                 } else if (itemId == R.id.nav_ticket) {
                     Intent intent3 = new Intent(context, MedicalTicketActivity.class);

@@ -21,7 +21,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
-    @GET("selfcare/clinvsic.php")
+    @GET("selfcare/clinic.php")
     Call<ClinicList> getAllClinics();
 
     @GET("selfcare/specialties.php")

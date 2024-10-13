@@ -172,6 +172,17 @@
             android:text="Gói sức khỏe toàn diện"
             android:layout_margin="10dp"
             android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/callHotline"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/call_24px"
+            android:drawablePadding="10dp"
+            android:text="Đặt khám 1900-1234"
+            android:layout_margin="10dp"
+            android:textColor="@color/black" />
     </GridLayout>
 
     <!-- Phần chứa Fragment -->

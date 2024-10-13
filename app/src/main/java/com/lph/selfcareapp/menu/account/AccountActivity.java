@@ -75,7 +75,7 @@ public class AccountActivity extends AppCompatActivity {
                 "Quy định sử dụng",
                 "Chính sách bảo mật",
                 "Điều khoản dịch vụ",
-                "Tổng đài CSKH 19002115",
+                "Tổng đài CSKH 19001234",
                 "Đánh giá ứng dụng",
                 "Chia sẻ ứng dụng",
                 "Một số câu hỏi thường gặp",
