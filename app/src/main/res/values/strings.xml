@@ -78,5 +78,11 @@
         <item>46-60</item>
         <item>60+</item>
     </string-array>
-
+    <string name="api_key">chv_b7Nx_64375d2ac104ebb16334f56c501c2d14ec6d18f1e360eca27d168c1c8a1705f5309a6ff9d5684b5b8eb9c79a0518fe80e27c87ec4f1c4a913c1ade88ef08f8e1</string>
+    <string name="voice_call">Voice call</string>
+    <string name="video_call">Video Call</string>
+    <string name="voice_call_2">Voice call 2</string>
+    <string name="video_call_2">Video Call 2</string>
+    <string name="incoming">Incoming</string>
+    <string name="user">User</string>
 </resources>

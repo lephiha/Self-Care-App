@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -51,6 +51,12 @@
                         android:layout_height="wrap_content"
                         android:text="@{clinic.address}"
                         android:textSize="15dp"/>
+                    <TextView
+                        android:id="@+id/distance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Cach 5km"
+                        android:textSize="15dp"/>
                 </LinearLayout>
 
 
@@ -63,7 +69,7 @@
                 android:paddingVertical="5dp">
                <com.google.android.material.button.MaterialButton
                    android:id="@+id/detailBtn"
-                   android:layout_width="150dp"
+                   android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="Xem chi tiết"
                    android:textColor="@color/link_blue"
@@ -76,7 +82,7 @@
                    android:layout_marginHorizontal="15dp" />
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/bookDoctorBtn"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Đặt khám ngay"
                     android:textColor="@color/white"

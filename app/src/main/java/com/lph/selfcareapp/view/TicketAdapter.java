@@ -1,6 +1,9 @@
 package com.lph.selfcareapp.view;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -39,7 +42,10 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketHold
     @Override
     public void onBindViewHolder(@NonNull TicketHolder holder, int position) {
         Appointment appointment = ticketList.get(position);
-        holder.ticketListItemBinding.ticketId.setText("Mã phiếu ");
+        holder.ticketListItemBinding.ticketId.setText("Mã phiếu: " + appointment.getAppoid());
+        holder.ticketListItemBinding.ticketDoctor.setText("Bác sĩ: " + appointment.getDocname());
+        holder.ticketListItemBinding.ticketPatient.setText("Bệnh nhân: " + appointment.getPname());
+        holder.ticketListItemBinding.ticketTime.setText("GIờ khám: " + appointment.getScheduledate() + " " + appointment.getStarttime() +"-" + appointment.getEndtime());
     }
 
     @Override

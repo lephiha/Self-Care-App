@@ -5,12 +5,23 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <!-- Always include this permission for coarse location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- Include this permission for fine (precise) location -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- Include this permission if your app needs background location access -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
-    <uses-feature android:name="android.hardware.telephony" android:required="false" />
-
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +34,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SelfCareApp"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ConfirmCallActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChooseCallDoctorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".stringee.activity.CallActivity"
+            android:exported="false" />
+        <activity
+            android:name=".IncomingCallActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SeeResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UploadDiagnose"
+            android:exported="false" />
         <activity
             android:name=".ConfirmActivity"
             android:exported="false" />
@@ -43,30 +71,24 @@
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Login.SignUpActivity" />
         <activity android:name=".menu.account.AccountActivity" />
-
-        <activity android:name=".menu.Medical.MedicalActivity" />
+        <activity android:name=".menu.MedicalFragment" />
         <activity android:name=".ChooseHospitalActivity" /> <!-- Khai báo MainActivity -->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity android:name=".Login.ForgotPassActivity" />
-        <activity android:name=".menu.account.InfoUserActivity"/>
-        <activity android:name=".menu.account.TermServiceActivity"/>
-        <activity android:name=".menu.account.PrivacyPolicyActivity"/>
-        <activity android:name=".menu.account.RateApp"/>
-        <activity android:name=".menu.account.CallActivity"/>
-        <activity android:name=".menu.account.UsePolicyActivity"/>
-        <activity android:name=".menu.Chat.ChatActivity"/>
-
-        <activity android:name=".tuvanOnline.TuvanActivity"/>
-        <activity android:name=".tuvanOnline.AskQuestionActivity"/>
-        <activity android:name=".menu.Medical.CreateProfileActivity"/>
-        <activity android:name=".menu.Medical.MedicalActivity"
-            tools:ignore="DuplicateActivity" />
-
-
+        <activity android:name=".menu.account.InfoUserActivity" />
+        <activity android:name=".menu.account.TermServiceActivity" />
+        <activity android:name=".menu.account.PrivacyPolicyActivity" />
+        <activity android:name=".menu.account.RateApp" />
+        <activity android:name=".menu.account.CallActivity" />
+        <activity android:name=".menu.account.UsePolicyActivity" />
+        <activity android:name=".menu.Chat.ChatActivity" />
+        <activity android:name=".menu.MedicalTicketActivity" />
+        <activity android:name=".MainDoctorActivity" />
+        <activity android:name=".menu.MedicalDoctorTicketActivity" />
+        <activity android:name=".menu.DiagnoseActivity" />
+        <activity android:name=".stringee.activity.StringeeActivity" />
     </application>
 
 </manifest>

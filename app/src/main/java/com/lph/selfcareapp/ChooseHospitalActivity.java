@@ -1,6 +1,8 @@
 package com.lph.selfcareapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +30,6 @@ public class ChooseHospitalActivity extends AppCompatActivity implements ChooseC
     private RecyclerView recyclerView;
     private ClinicAdapter clinicAdapter;
     private ClinicViewModel viewModel;
-    Button bookDoctorBtn;
     ImageButton back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +42,6 @@ public class ChooseHospitalActivity extends AppCompatActivity implements ChooseC
         viewModel = new ViewModelProvider(this)
                 .get(ClinicViewModel.class);
         back = findViewById(R.id.back);
-//        bookDoctorBtn = findViewById(R.id.bookDoctorBtn);
-//        bookDoctorBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(getApplication(), ChooseDoctorActivity.class));
-//            }
-//        });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +56,21 @@ public class ChooseHospitalActivity extends AppCompatActivity implements ChooseC
             @Override
             public void onChanged(ClinicList clinicList) {
                 clinics = clinicList;
+                for(Clinic clinic: clinics){
+                    SharedPreferences sp = getSharedPreferences("UserData", MODE_PRIVATE);
+                    double longitude = Double.parseDouble(sp.getString("longitude",""));
+                    double latitude = Double.parseDouble(sp.getString("latitude",""));
+                    Location startLocation = new Location("start");
+                    startLocation.setLatitude(latitude);
+                    startLocation.setLongitude(longitude);
+
+                    Location endLocation = new Location("end");
+                    endLocation.setLatitude(clinic.getLatitude());
+                    endLocation.setLongitude(clinic.getLongitude());
+                    float distance = startLocation.distanceTo(endLocation);
+                    clinic.setDistance(distance);
+                }
+                clinics.sort((o1, o2) -> (int)(o1.getDistance()-o2.getDistance()));
                 displayClinicsInRecyclerview();
             }
         });

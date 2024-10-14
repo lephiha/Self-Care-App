@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -65,5 +66,19 @@ dependencies {
     implementation("com.applandeo:material-calendar-view:1.9.2")
 
     implementation ("androidx.fragment:fragment:1.3.6")
+    implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
+//    stringee
+    implementation ("com.stringee.sdk.android:stringee-android-sdk:2.1.2")
+
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
+
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+
+    // Add the dependency for the Firebase SDK for Google Analytics
+    implementation("com.google.firebase:firebase-analytics")
+    implementation ("com.google.firebase:firebase-messaging")
+    implementation ("com.google.android.gms:play-services-maps:17.0.0")
+    implementation ("com.google.android.gms:play-services-location:17.0.0")
 
 }

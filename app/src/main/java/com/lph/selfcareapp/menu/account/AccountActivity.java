@@ -188,9 +188,11 @@ public class AccountActivity extends AppCompatActivity {
 
     private void logout() {
         SharedPreferences.Editor editor = getSharedPreferences("MyPrefs", MODE_PRIVATE).edit();
+        SharedPreferences.Editor sp=getSharedPreferences("Login", MODE_PRIVATE).edit();
+        sp.remove("isLogedin");
         editor.remove("username"); // Chỉ xóa dữ liệu đăng nhập
         editor.apply();
-
+        sp.apply();
         Intent intent = new Intent(getApplication(), LoginActivity.class);
         startActivity(intent);
         finish(); // Kết thúc Activity hiện tại
@@ -202,7 +204,7 @@ public class AccountActivity extends AppCompatActivity {
         BottomNavigationViewHelper.setupTopNavigationView(tvEx);
         BottomNavigationViewHelper.enableNavigation(AccountActivity.this, tvEx);
         Menu menu = tvEx.getMenu();
-        MenuItem menuItem = menu.getItem(3); // Đặt mục "Tài khoản" được chọn
+        MenuItem menuItem = menu.getItem(4); // Đặt mục "Tài khoản" được chọn
         menuItem.setChecked(true);
     }
 }

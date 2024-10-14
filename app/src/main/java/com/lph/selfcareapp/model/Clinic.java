@@ -28,11 +28,18 @@ public class Clinic extends BaseObservable implements Serializable {
     @SerializedName("chief_id")
     @Expose
     private int chief_id;
-
+    @SerializedName("latitude")
+    @Expose
+    private double latitude;
+    @SerializedName("longitude")
+    @Expose
+    private double longitude;
     @BindingAdapter("imagePath")
     public static void loadImage(ImageView imageView, String imageUrl){
         Glide.with(imageView.getContext()).load(imageUrl).into(imageView);
     }
+    private float distance;
+
     @Bindable
     public int getClinic_id() {
         return clinic_id;
@@ -76,5 +83,29 @@ public class Clinic extends BaseObservable implements Serializable {
 
     public void setChief_id(int chief_id) {
         this.chief_id = chief_id;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public float getDistance() {
+        return distance;
+    }
+
+    public void setDistance(float distance) {
+        this.distance = distance;
     }
 }
