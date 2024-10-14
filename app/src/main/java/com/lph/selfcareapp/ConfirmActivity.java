@@ -1,6 +1,7 @@
 package com.lph.selfcareapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +40,7 @@ public class ConfirmActivity extends AppCompatActivity {
     TextView date;
     TextView price;
     MaterialButton payBtn;
+    TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +65,9 @@ public class ConfirmActivity extends AppCompatActivity {
         date = findViewById(R.id.date);
         price = findViewById(R.id.price);
         payBtn = findViewById(R.id.payButton);
+        textView = findViewById(R.id.navText);
 
+        textView.setText("Xác nhận thanh toán");
         clinicname.setText(clinic.getClinic_name());
         clinicAddress.setText(clinic.getAddress());
         doctorName.setText(doctor.getDocname());
@@ -72,11 +76,15 @@ public class ConfirmActivity extends AppCompatActivity {
         String priceText = String.format("%,d", doctor.getPrice());
         priceText = priceText +"đ";
         price.setText(priceText);
-        String orderInfo = "1" +" "+ doctor.getDocId() + " "+ scheduleTime.getScheduleId();
+        SharedPreferences sp = getSharedPreferences("UserData", MODE_PRIVATE);
+        patientName.setText(sp.getString("fullname",""));
+        patientNumber.setText(sp.getString("phone",""));
+        String id = String.valueOf(sp.getInt("id",0));
+        String orderInfo = "book " + id +" "+ scheduleTime.getScheduleId();
         payBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RetrofitInstance.getService().createPayment(doctor.getPrice(),scheduleTime.getScheduleId(),orderInfo).enqueue(new Callback<ReturnData>() {
+                RetrofitInstance.getService().createPayment(doctor.getPrice(),System.currentTimeMillis()/1000,orderInfo).enqueue(new Callback<ReturnData>() {
                     @Override
                     public void onResponse(Call<ReturnData> call, Response<ReturnData> response) {
                         ReturnData returnData = response.body();
@@ -93,4 +101,6 @@ public class ConfirmActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

@@ -13,7 +13,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,11 +53,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ChooseDoctorActivity extends AppCompatActivity implements ChooseDoctorListener, ChooseTImeListener {
-
-
     SearchableSpinner spinner;
     private SpecialtyList specialtyList;
     private List<Doctor> doctorList;
+    private List<Doctor> doctorFilterList;
     private List<Doctor> temp;
     private List<ScheduleTime> scheduleTimeList;
     private SpecialtyViewModel specialtyViewModel;
@@ -76,11 +77,14 @@ public class ChooseDoctorActivity extends AppCompatActivity implements ChooseDoc
     Button continueBtn;
     Clinic clinic;
     Specialty specialty;
+    ImageButton imageButton;
+    TextView navText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_doctor);
         spinner = findViewById(R.id.speSpinner);
+        navText = findViewById(R.id.navText);
         specialtyViewModel = new ViewModelProvider(this)
                     .get(SpecialtyViewModel.class);
         clinic = (Clinic)getIntent().getSerializableExtra("clinic");
@@ -89,6 +93,7 @@ public class ChooseDoctorActivity extends AppCompatActivity implements ChooseDoc
         chooseDate = findViewById(R.id.chooseDate);
         chooseTime = findViewById(R.id.chooseTime);
         continueBtn= findViewById(R.id.continueBtn);
+        navText.setText("Chọn lịch khám");
         dialog = new Dialog(ChooseDoctorActivity.this);
         dialog.setContentView(R.layout.dialog_searchable_doctor);
         //set custom width and height
@@ -142,18 +147,21 @@ public class ChooseDoctorActivity extends AppCompatActivity implements ChooseDoc
         // Initialize and assign variable
         editText=dialog.findViewById(R.id.edit_text);
         doctorRecyclerView =dialog.findViewById(R.id.doctorRecyclerview);
-
+        imageButton = dialog.findViewById(R.id.filterImageButton);
+        imageButton.setOnClickListener(v -> filterDoctor());
 
         RetrofitInstance.getService().getAllDoctor(chiefId, speId).enqueue(new Callback<List<Doctor>>() {
             @Override
             public void onResponse(Call<List<Doctor>> call, Response<List<Doctor>> response) {
                 temp = response.body();
                 doctorList = new ArrayList<>(temp);
+                doctorFilterList = new ArrayList<>(temp);
                 doctorAdapter = new DoctorAdapter(ChooseDoctorActivity.this, doctorList,ChooseDoctorActivity.this::onItemClicked);
                 doctorRecyclerView.setAdapter(doctorAdapter);
                 doctorRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 doctorAdapter.notifyDataSetChanged();
                 editText.addTextChangedListener(new TextWatcher() {
+
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -163,7 +171,7 @@ public class ChooseDoctorActivity extends AppCompatActivity implements ChooseDoc
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         doctorAdapter = new DoctorAdapter(getApplicationContext(), doctorList,ChooseDoctorActivity.this::onItemClicked);
                         doctorRecyclerView.setAdapter(doctorAdapter);
-                        doctorList = temp.stream().filter(e->e.getDocname().toLowerCase().contains(s)).collect(Collectors.toList());
+                        doctorList = doctorFilterList.stream().filter(e->e.getDocname().toLowerCase().contains(s)).collect(Collectors.toList());
                         doctorAdapter.notifyDataSetChanged();
                     }
 
@@ -262,6 +270,43 @@ public class ChooseDoctorActivity extends AppCompatActivity implements ChooseDoc
                 timeRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
                 timeAdapter.notifyDataSetChanged();
             }
+        });
+    }
+
+    public void filterDoctor(){
+        Dialog filterDialog = new Dialog(ChooseDoctorActivity.this);
+        filterDialog.setContentView(R.layout.dialog_filter_doctor);
+        filterDialog.getWindow().setLayout(1000,1800);
+        // set transparent background
+        filterDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        filterDialog.show();
+        Button showBtn = filterDialog.findViewById(R.id.showbutton);
+        CheckBox checkBox1 = filterDialog.findViewById(R.id.checkbox1);
+        CheckBox checkBox2 = filterDialog.findViewById(R.id.checkbox2);
+        CheckBox checkBox3 = filterDialog.findViewById(R.id.checkbox3);
+        CheckBox checkBox4 = filterDialog.findViewById(R.id.checkbox4);
+        CheckBox checkBox5 = filterDialog.findViewById(R.id.checkbox5);
+        CheckBox checkBox6 = filterDialog.findViewById(R.id.checkbox6);
+        List<CheckBox> rank = new ArrayList<>();
+        rank.add(checkBox1);
+        rank.add(checkBox2);
+        rank.add(checkBox3);
+        rank.add(checkBox4);
+        showBtn.setOnClickListener(v -> {
+            doctorFilterList = new ArrayList<>(temp);
+            for(CheckBox cb:rank){
+                if (!cb.isChecked()){
+                    doctorFilterList = doctorFilterList.stream().filter(s->!s.getAcademicRank().equals(cb.getText())).collect(Collectors.toList());
+                }
+            }
+            if (!checkBox5.isChecked())
+                doctorFilterList = doctorFilterList.stream().filter(s->!s.getSex().equals("M")).collect(Collectors.toList());
+            if (!checkBox6.isChecked())
+                doctorFilterList = doctorFilterList.stream().filter(s->!s.getSex().equals("F")).collect(Collectors.toList());
+            filterDialog.dismiss();
+            doctorAdapter = new DoctorAdapter(getApplicationContext(), doctorFilterList,ChooseDoctorActivity.this::onItemClicked);
+            doctorRecyclerView.setAdapter(doctorAdapter);
+            doctorAdapter.notifyDataSetChanged();
         });
     }
 

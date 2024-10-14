@@ -1,6 +1,10 @@
 package com.lph.selfcareapp.view;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -39,6 +43,8 @@ public class ClinicAdapter extends RecyclerView.Adapter<ClinicAdapter.CLinicHold
     @Override
     public void onBindViewHolder(@NonNull CLinicHolder holder, int position) {
         Clinic clinic = clinicList.get(position);
+
+        holder.clinicListItemBinding.distance.setText("Cách bạn: "+clinic.getDistance()/1000 +" km ");
         holder.clinicListItemBinding.setClinic(clinic);
         holder.clinicListItemBinding.bookDoctorBtn.setOnClickListener(
                 v -> listener.onItemClicked(clinic)
@@ -50,6 +56,10 @@ public class ClinicAdapter extends RecyclerView.Adapter<ClinicAdapter.CLinicHold
         return clinicList.size();
     }
 
+    public void sortData(){
+        clinicList.sort((o1, o2) -> (int)(o1.getDistance()-o2.getDistance()));
+        notifyDataSetChanged();
+    }
     public class CLinicHolder extends RecyclerView.ViewHolder{
         private ClinicListItemBinding clinicListItemBinding;
         public CLinicHolder(ClinicListItemBinding clinicListItemBinding){

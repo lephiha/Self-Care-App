@@ -1,6 +1,8 @@
 package com.lph.selfcareapp.serviceAPI;
 
 import com.lph.selfcareapp.model.Appointment;
+import com.lph.selfcareapp.model.Appointment2;
+import com.lph.selfcareapp.model.CallDoctor;
 import com.lph.selfcareapp.model.ClinicList;
 import com.lph.selfcareapp.model.Doctor;
 import com.lph.selfcareapp.model.DoctorList;
@@ -21,25 +23,45 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
-    @GET("selfcare/clinic.php")
+    @GET("book-doctor/clinic.php")
     Call<ClinicList> getAllClinics();
 
-    @GET("selfcare/specialties.php")
+    @GET("book-doctor/specialties.php")
     Call<SpecialtyList> getAllSpecialties();
 
-    @GET("selfcare/doctor.php")
+    @GET("book-doctor/doctor.php")
     Call<List<Doctor>> getAllDoctor(@Query("chief_id") int chiefId,
                                          @Query("spe_id") int speId);
 
-    @GET("selfcare/time.php")
+    @GET("book-doctor/time.php")
     Call<List<ScheduleTime>> getScheduleTime(@Query("docid") int doctorId,
                                              @Query("date") String date);
     @FormUrlEncoded
-    @POST("selfcare/vnpay_create_payment.php")
+    @POST("book-doctor/vnpay_create_payment.php")
     Call<ReturnData> createPayment(@Field("amount") int amount,
-                                   @Field("order_id") int orderId,
+                                   @Field("order_id") long orderId,
                                     @Field("order_info") String orderInfo);
 
-    @GET("selfcare/appointment.php")
+    @GET("book-doctor/appointment.php")
     Call<List<Appointment>> getAppointment(@Query("pid") int pid);
+
+    @GET("book-doctor/appointment2.php")
+    Call<List<Appointment>> getAppointment2(@Query("docid") int docid);
+
+    @FormUrlEncoded
+    @POST("api/1/upload")
+    Call<String> getImageUrl(@Field("key") String key,
+                             @Field("source") String source,
+                             @Field("format") String format);
+
+    @FormUrlEncoded
+    @POST("book-doctor/uploadImage.php")
+    Call<String> uploadImage(@Field("image") String image,
+                             @Field("appoid") int appoid);
+
+    @GET("book-doctor/diagnose.php")
+    Call<List<Appointment2>> getResult(@Query("pid") int pid);
+
+    @GET("book-doctor/getcalldoctor.php")
+    Call<List<CallDoctor>> getCallDoctor(@Query("pid") int pid);
 }

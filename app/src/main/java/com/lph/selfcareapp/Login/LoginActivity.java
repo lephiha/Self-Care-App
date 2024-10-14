@@ -21,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 import com.lph.selfcareapp.MainActivity;
+import com.lph.selfcareapp.MainDoctorActivity;
 import com.lph.selfcareapp.R;
 
 import org.json.JSONArray;
@@ -37,8 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     Spinner roleSpiner;
 
 
-    String url_login = "http://192.168.0.107/selfcare/login.php";
-
+//    String url_login = "edoc.clbook-doctor/login.php";
+    String url_login = "https://edoc.cloudkma.fun/book-doctor/login.php";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +105,10 @@ public class LoginActivity extends AppCompatActivity {
                                 String objemail = object.getString("email").trim();
                                 String objphone = object.getString("phone").trim();
                                 String objrole = object.getString("utype").trim();
+                                String token = "";
+                                if(!object.getString("token").equals(null))
+                                    token = object.getString("token").trim();
+                                int objid = object.getInt("id");
 
                                 // Log vai trò từ server
                                 Log.d("ServerRole", "Role from server: " + objrole);
@@ -116,15 +121,25 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString("email", objemail);
                                 editor.putString("phone", objphone);
                                 editor.putString("utype", objrole);  // Lưu role
+                                editor.putInt("id",objid);
+                                editor.putString("token",token);
                                 editor.apply();
 
                                 // Chuyển hướng dựa vào vai trò
                                 Intent intent;
                                 switch (objrole.toLowerCase()) {  // So sánh không phân biệt hoa thường
                                     case "doctor":
-                                        intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        SharedPreferences sp=getSharedPreferences("Login", MODE_PRIVATE);
+                                        SharedPreferences.Editor Ed=sp.edit();
+                                        Ed.putBoolean("isLogedin", true);
+                                        Ed.commit();
+                                        intent = new Intent(LoginActivity.this, MainDoctorActivity.class);
                                         break;
                                     case "patient":
+                                        SharedPreferences sp2=getSharedPreferences("Login", MODE_PRIVATE);
+                                        SharedPreferences.Editor Ed2=sp2.edit();
+                                        Ed2.putBoolean("isLogedin", true);
+                                        Ed2.commit();
                                         intent = new Intent(LoginActivity.this, MainActivity.class);
                                         break;
                                     case "admin":

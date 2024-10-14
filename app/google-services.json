@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "743813382561",
+    "project_id": "self-care-app-dab08",
+    "storage_bucket": "self-care-app-dab08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743813382561:android:4b03ffde81b89d8b560be0",
+        "android_client_info": {
+          "package_name": "com.lph.selfcareapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAX-VG2w_-mvkbgbfnTToEpXZlomnNSOlk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

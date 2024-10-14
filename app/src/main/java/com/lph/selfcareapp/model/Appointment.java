@@ -16,6 +16,9 @@ public class Appointment {
     @SerializedName("docname")
     @Expose
     private String docname;
+    @SerializedName("pname")
+    @Expose
+    private String pname;
     @SerializedName("scheduledate")
     @Expose
     private String scheduledate;
@@ -80,5 +83,17 @@ public class Appointment {
 
     public void setEndtime(String endtime) {
         this.endtime = endtime;
+    }
+
+    public void setDocname(String docname) {
+        this.docname = docname;
+    }
+
+    public String getPname() {
+        return pname;
+    }
+
+    public void setPname(String pname) {
+        this.pname = pname;
     }
 }
