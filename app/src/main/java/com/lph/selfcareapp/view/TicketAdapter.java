@@ -46,6 +46,8 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketHold
         holder.ticketListItemBinding.ticketDoctor.setText("Bác sĩ: " + appointment.getDocname());
         holder.ticketListItemBinding.ticketPatient.setText("Bệnh nhân: " + appointment.getPname());
         holder.ticketListItemBinding.ticketTime.setText("GIờ khám: " + appointment.getScheduledate() + " " + appointment.getStarttime() +"-" + appointment.getEndtime());
+        holder.ticketListItemBinding.ticketClinic.setText("Phòng khám: " + appointment.getClinic_name());
+        holder.ticketListItemBinding.ticketaddress.setText("Địa chỉ: " + appointment.getAddress());
     }
 
     @Override

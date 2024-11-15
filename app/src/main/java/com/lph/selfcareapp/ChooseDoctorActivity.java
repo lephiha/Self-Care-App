@@ -77,8 +77,9 @@ public class ChooseDoctorActivity extends AppCompatActivity implements ChooseDoc
     Button continueBtn;
     Clinic clinic;
     Specialty specialty;
-    ImageButton imageButton;
+    ImageButton back;
     TextView navText;
+    ImageButton imageButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +89,8 @@ public class ChooseDoctorActivity extends AppCompatActivity implements ChooseDoc
         specialtyViewModel = new ViewModelProvider(this)
                     .get(SpecialtyViewModel.class);
         clinic = (Clinic)getIntent().getSerializableExtra("clinic");
+        back = findViewById(R.id.back);
+        back.setOnClickListener(v->finish());
         chiefId = clinic.getChief_id();
         chooseDoctor = findViewById(R.id.chooseDoctor);
         chooseDate = findViewById(R.id.chooseDate);
@@ -294,11 +297,12 @@ public class ChooseDoctorActivity extends AppCompatActivity implements ChooseDoc
         rank.add(checkBox4);
         showBtn.setOnClickListener(v -> {
             doctorFilterList = new ArrayList<>(temp);
-            for(CheckBox cb:rank){
-                if (!cb.isChecked()){
-                    doctorFilterList = doctorFilterList.stream().filter(s->!s.getAcademicRank().equals(cb.getText())).collect(Collectors.toList());
+            for (CheckBox cb : rank) {
+                if (!cb.isChecked()) {
+                    doctorFilterList.removeIf(e -> e.getAcademicRank().equals(cb.getText().toString()));
                 }
             }
+
             if (!checkBox5.isChecked())
                 doctorFilterList = doctorFilterList.stream().filter(s->!s.getSex().equals("M")).collect(Collectors.toList());
             if (!checkBox6.isChecked())

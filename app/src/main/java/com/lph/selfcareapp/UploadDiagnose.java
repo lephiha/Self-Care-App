@@ -18,6 +18,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.lph.selfcareapp.menu.DiagnoseActivity;
+import com.lph.selfcareapp.model.Result;
 import com.lph.selfcareapp.serviceAPI.RetrofitInstance;
 
 import java.io.ByteArrayOutputStream;
@@ -95,16 +97,20 @@ public class UploadDiagnose extends AppCompatActivity {
     }
 
     private void uploadImage(){
-        RetrofitInstance.getImage().uploadImage(imageUrl,appoid).enqueue(new Callback<String>() {
+        RetrofitInstance.getService().uploadImage(imageUrl,appoid).enqueue(new Callback<Result>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if(response.isSuccessful())
-                    Toast.makeText(getApplicationContext(),"Gửi thành công",Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                if(response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Gửi thành công", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(UploadDiagnose.this, DiagnoseActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable throwable) {
-
+            public void onFailure(Call<Result> call, Throwable throwable) {
+                Log.d("retrofit", throwable.toString());
             }
         });
     }

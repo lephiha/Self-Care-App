@@ -6,6 +6,8 @@ import com.lph.selfcareapp.model.CallDoctor;
 import com.lph.selfcareapp.model.ClinicList;
 import com.lph.selfcareapp.model.Doctor;
 import com.lph.selfcareapp.model.DoctorList;
+import com.lph.selfcareapp.model.Reschedule;
+import com.lph.selfcareapp.model.Result;
 import com.lph.selfcareapp.model.ReturnData;
 import com.lph.selfcareapp.model.ScheduleTime;
 import com.lph.selfcareapp.model.SpecialtyList;
@@ -56,7 +58,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("book-doctor/uploadImage.php")
-    Call<String> uploadImage(@Field("image") String image,
+    Call<Result> uploadImage(@Field("image") String image,
                              @Field("appoid") int appoid);
 
     @GET("book-doctor/diagnose.php")
@@ -64,4 +66,12 @@ public interface ApiService {
 
     @GET("book-doctor/getcalldoctor.php")
     Call<List<CallDoctor>> getCallDoctor(@Query("pid") int pid);
+
+    @GET("book-doctor/reschedule.php")
+    Call<Result> insertDate(@Query("pid") int pid,
+                            @Query("docid") int docid,
+                            @Query("date") String date);
+
+    @GET("book-doctor/showreschedule.php")
+    Call<List<Reschedule>> showreschedule(@Query("pid") int pid);
 }

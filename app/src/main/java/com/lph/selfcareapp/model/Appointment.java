@@ -10,6 +10,9 @@ public class Appointment {
     @SerializedName("pid")
     @Expose
     private Integer pid;
+    @SerializedName("docid")
+    @Expose
+    private Integer docid;
     @SerializedName("hasDone")
     @Expose
     private Integer hasDone;
@@ -28,6 +31,12 @@ public class Appointment {
     @SerializedName("endtime")
     @Expose
     private String endtime;
+    @SerializedName("clinic_name")
+    @Expose
+    private String clinic_name;
+    @SerializedName("address")
+    @Expose
+    private String address;
 
     public Integer getAppoid() {
         return appoid;
@@ -95,5 +104,29 @@ public class Appointment {
 
     public void setPname(String pname) {
         this.pname = pname;
+    }
+
+    public String getClinic_name() {
+        return clinic_name;
+    }
+
+    public void setClinic_name(String clinic_name) {
+        this.clinic_name = clinic_name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Integer getDocid() {
+        return docid;
+    }
+
+    public void setDocid(Integer docid) {
+        this.docid = docid;
     }
 }

@@ -4,7 +4,8 @@
     $date = $_GET['date'];
     $stmt = $conn->prepare("SELECT scheduleid, starttime, endtime, booked
                             FROM schedule
-                            WHERE docid = $docid and scheduledate = '$date'");
+                            WHERE docid = $docid and scheduledate = '$date'
+                            ORDER BY starttime ASC");
     $stmt->execute();
     $stmt->bind_result($schedule_id, $start_time, $end_time, $booked);
     $time = array();

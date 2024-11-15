@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.lph.selfcareapp.model.Appointment2;
+import com.lph.selfcareapp.model.Reschedule;
 import com.lph.selfcareapp.serviceAPI.RetrofitInstance;
-import com.lph.selfcareapp.view.ClinicAdapter;
-import com.lph.selfcareapp.view.ResultAdapter;
+import com.lph.selfcareapp.view.RescheduleAdapter;
+import com.lph.selfcareapp.view.TicketAdapter;
 
 import java.util.List;
 
@@ -25,37 +25,42 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SeeResultActivity extends AppCompatActivity {
+public class RescheduleActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    List<Appointment2> appointment2List;
-    ResultAdapter resultAdapter;
     TextView navText;
     ImageButton back;
+    int id;
+    List<Reschedule> rescheduleList;
+    RescheduleAdapter rescheduleAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_see_result);
-        recyclerView = findViewById(R.id.seeResView);
+        setContentView(R.layout.activity_reschedule);
+        recyclerView = findViewById(R.id.recyclerView);
         navText = findViewById(R.id.navText);
-        navText.setText("Kết quả khám bệnh ");
         back = findViewById(R.id.back);
-        back.setOnClickListener(v->getOnBackPressedDispatcher().onBackPressed());
+        navText.setText("Lịch tái khám ");
+        back.setOnClickListener(v -> finish());
         SharedPreferences sp = getSharedPreferences("UserData", MODE_PRIVATE);
-        int pid = sp.getInt("id",0);
-        RetrofitInstance.getService().getResult(pid).enqueue(new Callback<List<Appointment2>>() {
+        id = sp.getInt("id", 0);
+        getReschedule();
+    }
+
+    private void getReschedule() {
+        RetrofitInstance.getService().showreschedule(id).enqueue(new Callback<List<Reschedule>>() {
             @Override
-            public void onResponse(Call<List<Appointment2>> call, Response<List<Appointment2>> response) {
-                appointment2List = response.body();
-                resultAdapter = new ResultAdapter(SeeResultActivity.this, appointment2List);
+            public void onResponse(Call<List<Reschedule>> call, Response<List<Reschedule>> response) {
+                rescheduleList = response.body();
+                rescheduleAdapter = new RescheduleAdapter(RescheduleActivity.this,rescheduleList);
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
-                recyclerView.setAdapter(resultAdapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(SeeResultActivity.this));
-                resultAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(rescheduleAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(RescheduleActivity.this));
+                rescheduleAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<List<Appointment2>> call, Throwable throwable) {
+            public void onFailure(Call<List<Reschedule>> call, Throwable throwable) {
 
             }
         });

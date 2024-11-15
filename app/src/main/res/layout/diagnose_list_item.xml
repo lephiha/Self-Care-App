@@ -39,12 +39,25 @@
                 android:layout_height="wrap_content"
                 android:text="Bệnh nhân"
                 android:textSize="20dp"/>
-            <Button
-                android:layout_marginTop="10dp"
-                android:id="@+id/diagnoseBtn"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gửi chẩn đoán"/>
+                android:orientation="horizontal">
+                <Button
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/diagnoseBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gửi chẩn đoán"/>
+                <Button
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/reDiagnoseBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hẹn khám lại"/>
+            </LinearLayout>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

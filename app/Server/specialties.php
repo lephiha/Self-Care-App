@@ -13,4 +13,5 @@
         array_push($spe_array,$temp);
     }
     echo json_encode($spe_array);
+    $conn->close();
 ?>

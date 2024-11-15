@@ -28,6 +28,18 @@
                 android:text="Bác sĩ"
                 android:textSize="20dp"/>
             <TextView
+                android:id="@+id/ticketClinic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Phong kham"
+                android:textSize="20dp"/>
+            <TextView
+                android:id="@+id/ticketaddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dia chi"
+                android:textSize="20dp"/>
+            <TextView
                 android:id="@+id/ticketTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -3,7 +3,7 @@
     $stmt = $conn->prepare('SELECT *
                             FROM clinic');
     $stmt->execute();
-    $stmt->bind_result($clinic_id,$clinic_name,$address,$clinic_image,$chief_id);
+    $stmt->bind_result($clinic_id,$clinic_name,$address,$clinic_image,$chief_id,$latitude,$longitude);
 
     $clinic_array = array();
     while($stmt->fetch()){
@@ -13,6 +13,8 @@
         $temp['address'] = $address;
         $temp['clinic_image'] = $clinic_image;
         $temp['chief_id'] = $chief_id;
+        $temp['latitude'] = $latitude;
+        $temp['longitude'] = $longitude;
         array_push($clinic_array,$temp);
     }
 

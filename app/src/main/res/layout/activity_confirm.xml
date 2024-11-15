@@ -156,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="300dp"
+                    android:layout_width="250dp"
                     android:layout_height="match_parent"
                     android:text="Tiền khám"
                     android:textStyle="bold"

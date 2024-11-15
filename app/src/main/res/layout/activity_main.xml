@@ -163,13 +163,13 @@
 
         <!-- Nút Gói sức khỏe toàn diện -->
         <Button
-            android:id="@+id/healthPack"
+            android:id="@+id/reschedule"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:drawableTop="@drawable/baseline_gpp_good_24"
             android:drawablePadding="10dp"
-            android:text="Gói sức khỏe toàn diện"
+            android:text="Xem lịch tái khám"
             android:layout_margin="10dp"
             android:textColor="@color/black" />
 

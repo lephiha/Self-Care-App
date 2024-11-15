@@ -143,20 +143,15 @@ public class MainDoctorActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null); // Cho phép quay lại fragment trước đó
-        transaction.commit();
-    }
+
 
 
 
     private void setupNavigationView(){
         Log.d("Main", "setupTopNavigationView: setting up TopNavigationView");
-        BottomNavigationViewEx tvEx = findViewById(R.id.bottomNavBar);
+        BottomNavigationViewEx tvEx = findViewById(R.id.doctorBottomNavBar);
         BottomNavigationViewHelper.setupTopNavigationView(tvEx);
-        BottomNavigationViewHelper.enableNavigation(MainDoctorActivity.this, tvEx);
+        BottomNavigationViewHelper.enableNavigation2(MainDoctorActivity.this, tvEx);
         Menu menu = tvEx.getMenu();
         MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);

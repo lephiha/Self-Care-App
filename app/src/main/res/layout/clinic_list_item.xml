@@ -71,7 +71,7 @@
                    android:id="@+id/detailBtn"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="Xem chi tiết"
+                   android:text="Chỉ đường"
                    android:textColor="@color/link_blue"
                    android:textSize="15sp"
                    app:backgroundTint="@android:color/transparent"
