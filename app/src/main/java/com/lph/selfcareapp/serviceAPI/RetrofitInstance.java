@@ -13,8 +13,8 @@ public class RetrofitInstance {
             .create();
     private static Retrofit retrofit = null;
     private static Retrofit retrofit2 = null;
-//    private static String BASE_URL ="http://10.0.2.2/";
-    private static String BASE_URL ="https://edoc.cloudkma.fun/";
+    private static String BASE_URL ="http://10.0.2.2/";
+//    private static String BASE_URL ="https://edoc.cloudkma.fun/";
     private static String IMAGE_URL="https://anh.moe/";
     public static ApiService getService(){
         if(retrofit==null)

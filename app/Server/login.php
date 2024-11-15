@@ -20,43 +20,79 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo json_encode($result);  
         exit();  
     }  
+    if(strcasecmp($utype,"patient")==0){
+        $stmt = $conn->prepare("SELECT * FROM patient WHERE pemail = ?");  
+        $stmt->bind_param("s", $username);  
+        $stmt->execute();  
+        $response = $stmt->get_result();  
 
-    // Sử dụng prepared statements để tránh SQL Injection  
-    $stmt = $conn->prepare("SELECT * FROM user WHERE username = ?");  
-    $stmt->bind_param("s", $username);  
-    $stmt->execute();  
-    $response = $stmt->get_result();  
-
-    if ($response->num_rows === 1) {  
-        $row = $response->fetch_assoc();  
-        
-        // Kiểm tra mật khẩu  
-        if (password_verify($password, $row['password'])) {  
-            // Kiểm tra vai trò (không phân biệt chữ hoa chữ thường)  
-            if (strcasecmp($row['utype'], $utype) === 0) {  
-                $index = [  
-                    'username' => $row['username'],  
-                    'fullname' => $row['fullname'],  
-                    'email' => $row['email'],  
-                    'phone' => $row['phone'],  
-                    'utype' => $row['utype'] // Lấy loại tài khoản (role)  
-                ];  
-                
-                array_push($result['login'], $index);  
-                $result['success'] = "1";  
-                $result['message'] = "Login successful";  
-            } else {  
+        if ($response->num_rows === 1) {  
+            $row = $response->fetch_assoc();  
+            
+            // Kiểm tra mật khẩu  
+            if (strcasecmp($password, $row['ppassword'])==0) {  
+                // Kiểm tra vai trò (không phân biệt chữ hoa chữ thường)  
                  
-                $result['message'] = "Role does not match";  
+                    $index = [
+                        'id' => $row['pid'],  
+                        'username' => $row['pname'],  
+                        'fullname' => $row['pname'],  
+                        'email' => $row['pemail'],  
+                        'phone' => $row['ptel'],  
+                        'token' => $row['token'],
+                        'utype' => "patient" // Lấy loại tài khoản (role)  
+                    ];  
+                    
+                    array_push($result['login'], $index);  
+                    $result['success'] = "1";  
+                    $result['message'] = "Login successful";  
+                
+            } else {  
+                
+                $result['message'] = "Invalid password";  
             }  
         } else {  
-             
-            $result['message'] = "Invalid password";  
+            
+            $result['message'] = "User not found";  
         }  
-    } else {  
-        
-        $result['message'] = "User not found";  
-    }  
+    }else{
+        //login as doctor
+        $stmt = $conn->prepare("SELECT * FROM doctor WHERE docemail = ?");  
+        $stmt->bind_param("s", $username);  
+        $stmt->execute();  
+        $response = $stmt->get_result();  
+
+        if ($response->num_rows === 1) {  
+            $row = $response->fetch_assoc();  
+            
+            // Kiểm tra mật khẩu  
+            if (strcasecmp($password, $row['docpassword'])==0) {  
+                // Kiểm tra vai trò (không phân biệt chữ hoa chữ thường)  
+                    $index = [
+                        'username' => $row['docname'], 
+                        'id' => $row['docid'],   
+                        'fullname' => $row['docname'],  
+                        'email' => $row['docemail'],  
+                        'phone' => $row['doctel'],
+                        'token' => $row['token'],  
+                        'utype' => "doctor" // Lấy loại tài khoản (role) 
+                    ];  
+                    
+                    array_push($result['login'], $index);  
+                    $result['success'] = "1";  
+                    $result['message'] = "Login successful";  
+                } 
+             else {  
+                
+                $result['message'] = "Invalid password";  
+            }  
+        } else {  
+            
+            $result['message'] = "User not found";  
+        }  
+    }
+    // Sử dụng prepared statements để tránh SQL Injection  
+    
 
       
     echo json_encode($result);  

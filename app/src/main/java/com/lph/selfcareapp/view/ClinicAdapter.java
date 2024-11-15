@@ -49,6 +49,7 @@ public class ClinicAdapter extends RecyclerView.Adapter<ClinicAdapter.CLinicHold
         holder.clinicListItemBinding.bookDoctorBtn.setOnClickListener(
                 v -> listener.onItemClicked(clinic)
         );
+        holder.clinicListItemBinding.detailBtn.setOnClickListener(v->listener.openMap(clinic));
     }
 
     @Override

@@ -51,6 +51,7 @@ public class DiagnoseAdapter extends RecyclerView.Adapter<DiagnoseAdapter.Ticket
         holder.ticketListItemBinding.ticketPatient.setText("Bệnh nhân: " + appointment.getPname());
         holder.ticketListItemBinding.ticketTime.setText("GIờ khám: " + appointment.getScheduledate() + " " + appointment.getStarttime() +"-" + appointment.getEndtime());
         holder.ticketListItemBinding.diagnoseBtn.setOnClickListener(v->listener.onButtonClicked(appointment));
+        holder.ticketListItemBinding.reDiagnoseBtn.setOnClickListener(v->listener.onButtonClicked2(appointment));
     }
 
     @Override

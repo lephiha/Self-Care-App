@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -39,6 +41,7 @@ public class MedicalTicketActivity extends AppCompatActivity {
     TextView navText;
     MaterialButton bookedBtn;
     MaterialButton seenBtn;
+    ImageButton back;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,8 @@ public class MedicalTicketActivity extends AppCompatActivity {
         navText.setText("Lịch khám");
         bookedBtn = findViewById(R.id.bookedBtn);
         seenBtn = findViewById(R.id.seenBtn);
+        back = findViewById(R.id.back);
+        back.setOnClickListener(v->getOnBackPressedDispatcher().onBackPressed());
         getTicket();
         bookedBtn.setOnClickListener(new View.OnClickListener() {
             @Override

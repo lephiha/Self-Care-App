@@ -5,6 +5,7 @@ import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,13 +36,14 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lph.selfcareapp.Utils.BottomNavigationViewHelper;
 import com.lph.selfcareapp.menu.Chat.ChatActivity;
-import com.lph.selfcareapp.menu.MedicalFragment;
 import com.lph.selfcareapp.menu.MedicalTicketActivity;
 import com.lph.selfcareapp.menu.account.AccountActivity;
 import com.lph.selfcareapp.menu.account.InfoUserActivity;
@@ -53,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView avatar, tuvanOnline;
     ViewFlipper viewFlipper;
     Animation in, out;
-    Button examBtn;
+    Button examBtn, viewResults, reschedule;
     private FusedLocationProviderClient fusedLocationClient;
     public static final int REQUEST_LOCATION_PERMISSION = 100;
     public static final int REQUEST_BACKGROUND_LOCATION_PERMISSION = 123;
@@ -72,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
         tuvanOnline = findViewById(R.id.tuvanOnline);
         viewFlipper = findViewById(R.id.viewFlipper);
         examBtn = findViewById(R.id.examBtn);
+        viewResults = findViewById(R.id.viewResultsBtn);
+        reschedule = findViewById(R.id.reschedule);
         //viewflipper chuyển ảnh
         in = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         out = AnimationUtils.loadAnimation(this, R.anim.fade_out);
@@ -80,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         viewFlipper.setFlipInterval(3000);
         viewFlipper.setAutoStart(true);
         checkLocationSettings();
-
+        askNotificationPermission();
 
 
 
@@ -116,25 +122,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationViewEx.OnNavigationItemSelectedListener() {
+        viewResults.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.nav_ticket) {
-                    startActivity(new Intent(MainActivity.this, MedicalTicketActivity.class));
-                    return true;
-                } else if (item.getItemId() == R.id.nav_file) {
-                    loadFragment(new MedicalFragment());
-                    return true;
-                } else if (item.getItemId() == R.id.nav_chat) {
-                    startActivity(new Intent(MainActivity.this, ChatActivity.class));
-                    return true;
-                } else if (item.getItemId() == R.id.nav_account) {
-                    startActivity(new Intent(MainActivity.this, AccountActivity.class));
-                    return true;
-                }
-                return false;
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, SeeResultActivity.class);
+                startActivity(i);
             }
         });
+
 
         examBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,9 +139,45 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        reschedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, RescheduleActivity.class);
+                startActivity(i);
+            }
+        });
+
+
 
     }
+    // Declare the launcher at the top of your Activity/Fragment:
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    // FCM SDK (and your app) can post notifications.
+                } else {
+                    // TODO: Inform user that that your app will not show notifications.
+                }
+            });
 
+
+    private void askNotificationPermission() {
+        // This is only necessary for API level >= 33 (TIRAMISU)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) ==
+                    PackageManager.PERMISSION_GRANTED) {
+                // FCM SDK (and your app) can post notifications.
+            } else if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
+                // TODO: display an educational UI explaining to the user the features that will be enabled
+                //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
+                //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
+                //       If the user selects "No thanks," allow the user to continue without notifications.
+            } else {
+                // Directly ask for the permission
+                requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS);
+            }
+        }
+    }
     private void checkLocationSettings() {
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);

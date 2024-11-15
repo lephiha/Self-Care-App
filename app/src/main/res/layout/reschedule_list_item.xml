@@ -16,22 +16,28 @@
             android:orientation="vertical"
             android:padding="10dp">
             <TextView
-                android:id="@+id/ticketId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mã phiếu khám"
-                android:textSize="20dp"/>
-            <TextView
                 android:id="@+id/ticketDoctor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bác sĩ"
                 android:textSize="20dp"/>
             <TextView
-                android:id="@+id/ticketTime"
-                android:layout_width="wrap_content"
+                android:id="@+id/ticketClinic"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Giờ khám"
+                android:text="Phòng khám"
+                android:textSize="20dp"/>
+            <TextView
+                android:id="@+id/ticketaddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dia chi"
+                android:textSize="20dp"/>
+            <TextView
+                android:id="@+id/ticketdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ngay"
                 android:textSize="20dp"/>
             <TextView
                 android:id="@+id/ticketPatient"
@@ -39,10 +45,6 @@
                 android:layout_height="wrap_content"
                 android:text="Bệnh nhân"
                 android:textSize="20dp"/>
-            <ImageView
-                android:id="@+id/diagImageview"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"/>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

@@ -3,6 +3,7 @@ package com.lph.selfcareapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -77,7 +78,7 @@ public class ChooseHospitalActivity extends AppCompatActivity implements ChooseC
     }
 
     public void displayClinicsInRecyclerview(){
-        clinicAdapter = new ClinicAdapter(this, clinics,this::onItemClicked);
+        clinicAdapter = new ClinicAdapter(this, clinics,this);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(clinicAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -89,5 +90,12 @@ public class ChooseHospitalActivity extends AppCompatActivity implements ChooseC
         Intent intent = new Intent(getApplication(), ChooseDoctorActivity.class);
         intent.putExtra("clinic", clinic);
         startActivity(intent);
+    }
+
+    @Override
+    public void openMap(Clinic clinic) {
+        String geoUri = "http://maps.google.com/maps?q=loc:" + clinic.getLatitude() + "," + clinic.getLongitude();
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(geoUri));
+        startActivity(intent);;
     }
 }

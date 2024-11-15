@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -27,10 +26,8 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lph.selfcareapp.Login.LoginActivity;
 import com.lph.selfcareapp.R;
 import com.lph.selfcareapp.Utils.BottomNavigationViewHelper;
-import com.lph.selfcareapp.menu.*;
-import com.lph.selfcareapp.menu.account.CustomAdapter;
 
-public class AccountActivity extends AppCompatActivity {
+public class AccountDoctorActivity extends AppCompatActivity {
     private Button logout_btn;
     private ImageView backButton;
     private ShapeableImageView avatar;
@@ -105,20 +102,20 @@ public class AccountActivity extends AppCompatActivity {
                 Intent intent = null;
                 switch (position) {
                     case 0:
-                        intent = new Intent(AccountActivity.this, UsePolicyActivity.class);
+                        intent = new Intent(AccountDoctorActivity.this, UsePolicyActivity.class);
                         break;
                     case 1:
-                        intent = new Intent(AccountActivity.this, PrivacyPolicyActivity.class);
+                        intent = new Intent(AccountDoctorActivity.this, PrivacyPolicyActivity.class);
                         break;
                     case 2:
-                        intent = new Intent(AccountActivity.this, TermServiceActivity.class);
+                        intent = new Intent(AccountDoctorActivity.this, TermServiceActivity.class);
                         break;
                     case 3:
-                        intent = new Intent(AccountActivity.this, CallActivity.class);
+                        intent = new Intent(AccountDoctorActivity.this, CallActivity.class);
                         startActivity(intent);
                         break;
                     case 4:
-                        intent = new Intent(AccountActivity.this, RateApp.class);
+                        intent = new Intent(AccountDoctorActivity.this, RateApp.class);
                         startActivity(intent);
                         break;
                     case 5:
@@ -136,14 +133,14 @@ public class AccountActivity extends AppCompatActivity {
                         break;
 
                     case 6:
-                        intent = new Intent(AccountActivity.this, FAQ.class);
+                        intent = new Intent(AccountDoctorActivity.this, FAQ.class);
                         break;
 
                     case 7:
                         // Xóa thông tin
                         getApplication().getSharedPreferences("MyPrefs", MODE_PRIVATE).edit().clear().apply();
 
-                        intent = new Intent(AccountActivity.this, LoginActivity.class);
+                        intent = new Intent(AccountDoctorActivity.this, LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
 
@@ -200,11 +197,11 @@ public class AccountActivity extends AppCompatActivity {
 
     private void setupNavigationView(){
         Log.d("Main", "setupTopNavigationView: setting up TopNavigationView");
-        BottomNavigationViewEx tvEx = findViewById(R.id.bottomNavBar);
+        BottomNavigationViewEx tvEx = findViewById(R.id.doctorBottomNavBar);
         BottomNavigationViewHelper.setupTopNavigationView(tvEx);
-        BottomNavigationViewHelper.enableNavigation(AccountActivity.this, tvEx);
+        BottomNavigationViewHelper.enableNavigation2(AccountDoctorActivity.this, tvEx);
         Menu menu = tvEx.getMenu();
-        MenuItem menuItem = menu.getItem(4);
+        MenuItem menuItem = menu.getItem(1); // Đặt mục "Tài khoản" được chọn
         menuItem.setChecked(true);
     }
 }

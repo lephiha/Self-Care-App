@@ -80,5 +80,6 @@ dependencies {
     implementation ("com.google.firebase:firebase-messaging")
     implementation ("com.google.android.gms:play-services-maps:17.0.0")
     implementation ("com.google.android.gms:play-services-location:17.0.0")
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
 
 }

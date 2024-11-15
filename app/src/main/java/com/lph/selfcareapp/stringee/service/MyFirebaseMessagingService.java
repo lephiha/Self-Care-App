@@ -19,6 +19,7 @@ import org.json.JSONObject;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onNewToken(@NonNull String token) {
+
         if (ClientManager.getInstance(this).getStringeeClient() == null) {
             ClientManager.getInstance(this).connect();
         }
