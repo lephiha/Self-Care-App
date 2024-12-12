@@ -91,6 +91,7 @@
         <activity android:name=".menu.MedicalDoctorTicketActivity" />
         <activity android:name=".menu.DiagnoseActivity" />
         <activity android:name=".stringee.activity.StringeeActivity" />
+        <activity android:name=".tuvanOnline.TuvanActivity"/>
     </application>
 
 </manifest>

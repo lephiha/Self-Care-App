@@ -23,6 +23,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.lph.selfcareapp.MainActivity;
 import com.lph.selfcareapp.MainDoctorActivity;
 import com.lph.selfcareapp.R;
+import com.lph.selfcareapp.Utils.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +31,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class LoginActivity extends AppCompatActivity {
     TextView signUpRedirect, tv_error, forgotPassword;
@@ -39,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 //    String url_login = "edoc.clbook-doctor/login.php";
-    String url_login = "https://edoc.cloudkma.fun/book-doctor/login.php";
+    String url_login = "http://192.168.56.1/book-doctor/login.php";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,8 +88,13 @@ public class LoginActivity extends AppCompatActivity {
         } else if (password.isEmpty()) {
             tv_error.setText("Please Enter Your Password");
         } else {
+
+            // Mã hóa mật khẩu
+            String hashedPassword = Utils.hashPassword(password);
+
             ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setMessage("Loading...");
+            progressDialog.setCancelable(false);
             progressDialog.show();
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url_login,
@@ -185,4 +193,5 @@ public class LoginActivity extends AppCompatActivity {
             requestQueue.add(stringRequest);
         }
     }
+
 }

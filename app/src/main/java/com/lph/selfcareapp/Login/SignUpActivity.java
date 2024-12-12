@@ -22,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 import com.lph.selfcareapp.R;
+import com.lph.selfcareapp.Utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,9 +36,7 @@ public class SignUpActivity extends AppCompatActivity {
     Button signUpButton;
     Spinner roleSpinner;
 
-
-    String url_register = "http://192.168.0.107/selfcare/register.php";
-
+    String url_register = "http://192.168.56.1/book-doctor/register.php";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,31 +86,12 @@ public class SignUpActivity extends AppCompatActivity {
         String username = usernameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
         String confirmPassword = confirmPasswordEditText.getText().toString().trim();
-        String role = roleSpinner.getSelectedItem().toString();  // Lấy vai trò từ Spinner
+        String role = roleSpinner.getSelectedItem().toString(); // Vai trò (utype)
+        String extraInfo = "Default info"; // Thêm thông tin chi tiết (nếu cần)
 
-        // Kiểm tra dữ liệu đầu vào
-        if (fullname.isEmpty()) {
-            Toast.makeText(SignUpActivity.this, "Please enter your full name", Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (email.isEmpty()) {
-            Toast.makeText(SignUpActivity.this, "Please enter your email", Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (phone.isEmpty()) {
-            Toast.makeText(SignUpActivity.this, "Please enter your phone number", Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (username.isEmpty()) {
-            Toast.makeText(SignUpActivity.this, "Please enter your username", Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (password.isEmpty()) {
-            Toast.makeText(SignUpActivity.this, "Please enter your password", Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (confirmPassword.isEmpty()) {
-            Toast.makeText(SignUpActivity.this, "Please confirm your password", Toast.LENGTH_LONG).show();
+        // Kiểm tra dữ liệu bắt buộc
+        if (fullname.isEmpty() || email.isEmpty() || phone.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            Toast.makeText(SignUpActivity.this, "Please fill in all fields", Toast.LENGTH_LONG).show();
             return;
         }
         if (!password.equals(confirmPassword)) {
@@ -120,27 +100,30 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         progressDialog.show();
+        // Mã hóa mật khẩu trước khi gửi
+        String hashedPassword = Utils.hashPassword(password);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url_register,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("ServerResponse", response); // Kiểm tra phản hồi của server
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
+                            String message = jsonObject.getString("message");
+
                             if (success.equals("1")) {
                                 progressDialog.dismiss();
-                                Toast.makeText(SignUpActivity.this, "Register Successful", Toast.LENGTH_LONG).show();
+                                Toast.makeText(SignUpActivity.this, message, Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                                 startActivity(intent);
                                 finish();
                             } else if (success.equals("2")) {
                                 progressDialog.dismiss();
-                                Toast.makeText(SignUpActivity.this, "Username Already Taken", Toast.LENGTH_LONG).show();
+                                Toast.makeText(SignUpActivity.this, message, Toast.LENGTH_LONG).show();
                             } else {
                                 progressDialog.dismiss();
-                                Toast.makeText(SignUpActivity.this, "Registration Failed", Toast.LENGTH_LONG).show();
+                                Toast.makeText(SignUpActivity.this, "Error: " + message, Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -155,7 +138,6 @@ public class SignUpActivity extends AppCompatActivity {
                 progressDialog.dismiss();
             }
         }) {
-
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
@@ -164,7 +146,8 @@ public class SignUpActivity extends AppCompatActivity {
                 params.put("phone", phone);
                 params.put("username", username);
                 params.put("password", password);
-                params.put("utype", role);  // Gửi role
+                params.put("utype", role); // Gửi vai trò
+                params.put("extra_info", extraInfo); // Gửi thông tin chi tiết
                 return params;
             }
         };
@@ -172,5 +155,5 @@ public class SignUpActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
-}
 
+}

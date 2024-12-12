@@ -11,6 +11,7 @@ import com.lph.selfcareapp.model.Result;
 import com.lph.selfcareapp.model.ReturnData;
 import com.lph.selfcareapp.model.ScheduleTime;
 import com.lph.selfcareapp.model.SpecialtyList;
+import com.lph.selfcareapp.view.TimeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,4 +75,12 @@ public interface ApiService {
 
     @GET("book-doctor/showreschedule.php")
     Call<List<Reschedule>> showreschedule(@Query("pid") int pid);
+
+    @FormUrlEncoded
+    @POST("book-doctor/addschedule.php")
+    Call<TimeAdapter> addSchedule(@Field("docid") int docid,
+                                  @Field("date") String date,
+                                  @Field("time") String time,
+                                  @Field("patient_id") int patientId);
+
 }
