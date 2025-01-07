@@ -6,7 +6,6 @@
     android:background="@color/gray_btn_bg_color"
     android:padding="16dp">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,20 +36,16 @@
 
         <!-- Tên đầy đủ -->
         <TextView
-            android:id="@+id/usernameTextView"
+            android:id="@+id/fullnameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="42dp"
             android:layout_marginTop="60dp"
             android:layout_toEndOf="@id/avatarImageView"
-            android:text="lephiha"
+            android:text="Lê Phi Hà"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:textStyle="bold"
-
-            />
-
-
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <!-- Phần thông tin chi tiết -->
@@ -62,54 +57,119 @@
         android:background="@android:color/white"
         android:padding="16dp">
 
+        <!-- Full Name -->
         <TextView
-            android:id="@+id/Name"
+            android:id="@+id/fullNameLabel"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="Tên:"
             android:textSize="20dp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
+
         <TextView
-            android:id="@+id/fullNameTextView"
+            android:id="@+id/fullNameDetailTextView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="Lê Phi Hà"
             android:layout_marginTop="10dp"
             android:textSize="18sp"
             android:layout_marginBottom="10dp"
             android:textColor="@android:color/black" />
+
+        <!-- Date of Birth -->
         <TextView
-            android:id="@+id/Phone"
+            android:id="@+id/dobLabel"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Số điện thoại:"
+            android:layout_height="wrap_content"
+            android:text="Ngày sinh:"
             android:textSize="20dp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
+
         <TextView
-            android:id="@+id/phoneTextView"
+            android:id="@+id/dobTextView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:text="01/01/1990"
             android:layout_marginTop="10dp"
-            android:text="012345696"
             android:textSize="18sp"
             android:layout_marginBottom="10dp"
             android:textColor="@android:color/black" />
+
+        <!-- NIC -->
         <TextView
-            android:id="@+id/Email"
+            android:id="@+id/nicLabel"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Email: "
+            android:layout_height="wrap_content"
+            android:text="Số CCCD:"
             android:textSize="20dp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/nicTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="123456789"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/black" />
+
+        <!-- Address -->
+        <TextView
+            android:id="@+id/addressLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Địa chỉ:"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/addressTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="123 Đường ABC, Quận X, Thành phố Y"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/black" />
+
+        <!-- Phone -->
+        <TextView
+            android:id="@+id/phoneLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Số điện thoại:"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/phoneTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="012345696"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/black" />
+
+        <!-- Email -->
+        <TextView
+            android:id="@+id/emailLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email:"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/emailTextView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="faf@gmail.com"
             android:layout_marginTop="10dp"
@@ -117,30 +177,26 @@
             android:textSize="18sp"
             android:textColor="@android:color/black" />
 
+        <!-- Role -->
         <TextView
-            android:id="@+id/Role"
+            android:id="@+id/roleLabel"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Role: "
+            android:layout_height="wrap_content"
+            android:text="Vai trò:"
             android:textSize="20dp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/roleTextView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="doctor"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:textSize="18sp"
             android:textColor="@android:color/black" />
-
-
     </LinearLayout>
-
-
-
 
     <include layout="@layout/bottom_navigation"
         android:id="@+id/bottom_navigation"

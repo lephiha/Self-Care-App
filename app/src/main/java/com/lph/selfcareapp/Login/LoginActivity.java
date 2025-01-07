@@ -23,6 +23,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.lph.selfcareapp.MainActivity;
 import com.lph.selfcareapp.MainDoctorActivity;
 import com.lph.selfcareapp.R;
+import com.lph.selfcareapp.Utils.AESUtils;
 import com.lph.selfcareapp.Utils.Utils;
 
 import org.json.JSONArray;
@@ -36,7 +37,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class LoginActivity extends AppCompatActivity {
     TextView signUpRedirect, tv_error, forgotPassword;
-    TextInputEditText usernameEditText, passwordEditText;
+    TextInputEditText emailEditText, passwordEditText;
     Button loginBtn;
     Spinner roleSpiner;
 
@@ -70,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
     @SuppressLint("WrongViewCast")
     private void Anhxa() {
         signUpRedirect = findViewById(R.id.signUpRedirect);
-        usernameEditText = findViewById(R.id.usernameEditText);
+        emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginBtn = findViewById(R.id.loginBtn);
         tv_error = findViewById(R.id.tv_error);
@@ -79,92 +80,80 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void GoLogin() {
-        String username = usernameEditText.getText().toString().trim();
+        String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
-        String selectedRole = roleSpiner.getSelectedItem().toString().toLowerCase(); // Chuyển về chữ thường
+        String selectedRole = roleSpiner.getSelectedItem().toString().toLowerCase();
 
-        if (username.isEmpty()) {
-            tv_error.setText("Please Enter Your Username");
+        if (email.isEmpty()) {
+            tv_error.setText("Please Enter Your Email");
         } else if (password.isEmpty()) {
             tv_error.setText("Please Enter Your Password");
         } else {
-
-            // Mã hóa mật khẩu
-            String hashedPassword = Utils.hashPassword(password);
 
             ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setMessage("Loading...");
             progressDialog.setCancelable(false);
             progressDialog.show();
 
+
+
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url_login,
                     response -> {
                         try {
                             Log.e("RESPONSE", response);
                             JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
 
-                            if (success.equals("1")) {
-                                JSONArray jsonArray = jsonObject.getJSONArray("login");
-                                JSONObject object = jsonArray.getJSONObject(0);
+                            // Kiểm tra trường success tồn tại hay không
+                            if (jsonObject.has("success")) {
+                                String success = jsonObject.getString("success");
+                                if (success.equals("1")) {
+                                    JSONArray jsonArray = jsonObject.getJSONArray("login");
+                                    JSONObject object = jsonArray.getJSONObject(0);
 
-                                String objusername = object.getString("username").trim();
-                                String objfullname = object.getString("fullname").trim();
-                                String objemail = object.getString("email").trim();
-                                String objphone = object.getString("phone").trim();
-                                String objrole = object.getString("utype").trim();
-                                String token = "";
-                                if(!object.getString("token").equals(null))
-                                    token = object.getString("token").trim();
-                                int objid = object.getInt("id");
+                                    String objemail = object.getString("email").trim();
+                                    String objfullname = object.getString("fullname").trim();
+                                    String objrole = object.getString("utype").trim();
+                                    String token = object.optString("token", "");
+                                    int objid = object.getInt("id");
 
-                                // Log vai trò từ server
-                                Log.d("ServerRole", "Role from server: " + objrole);
+                                    // Lưu thông tin vào SharedPreferences
+                                    SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("email", objemail);
+                                    editor.putString("fullname", objfullname);
+                                    editor.putString("utype", objrole);
+                                    editor.putInt("id", objid);
+                                    editor.putString("token", token);
+                                    editor.apply();
 
-                                // Lưu thông tin vào SharedPreferences
-                                SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("username", objusername);
-                                editor.putString("fullname", objfullname);
-                                editor.putString("email", objemail);
-                                editor.putString("phone", objphone);
-                                editor.putString("utype", objrole);  // Lưu role
-                                editor.putInt("id",objid);
-                                editor.putString("token",token);
-                                editor.apply();
 
-                                // Chuyển hướng dựa vào vai trò
-                                Intent intent;
-                                switch (objrole.toLowerCase()) {  // So sánh không phân biệt hoa thường
-                                    case "doctor":
-                                        SharedPreferences sp=getSharedPreferences("Login", MODE_PRIVATE);
-                                        SharedPreferences.Editor Ed=sp.edit();
-                                        Ed.putBoolean("isLogedin", true);
-                                        Ed.commit();
-                                        intent = new Intent(LoginActivity.this, MainDoctorActivity.class);
-                                        break;
-                                    case "patient":
-                                        SharedPreferences sp2=getSharedPreferences("Login", MODE_PRIVATE);
-                                        SharedPreferences.Editor Ed2=sp2.edit();
-                                        Ed2.putBoolean("isLogedin", true);
-                                        Ed2.commit();
-                                        intent = new Intent(LoginActivity.this, MainActivity.class);
-                                        break;
-                                    case "admin":
-                                        intent = new Intent(LoginActivity.this, MainActivity.class);
-                                        break;
-                                    default:
-                                        Toast.makeText(LoginActivity.this, "Invalid role", Toast.LENGTH_LONG).show();
-                                        progressDialog.dismiss();
-                                        return;
+
+                                    Intent intent;
+                                    switch (objrole.toLowerCase()) {
+                                        case "doctor":
+                                            intent = new Intent(LoginActivity.this, MainDoctorActivity.class);
+                                            break;
+                                        case "patient":
+                                            intent = new Intent(LoginActivity.this, MainActivity.class);
+                                            break;
+                                        default:
+                                            Toast.makeText(LoginActivity.this, "Invalid role", Toast.LENGTH_LONG).show();
+                                            progressDialog.dismiss();
+                                            return;
+                                    }
+
+                                    Toast.makeText(LoginActivity.this, "Welcome " + objfullname, Toast.LENGTH_LONG).show();
+                                    progressDialog.dismiss();
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    String message = jsonObject.getString("message");
+                                    Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
+                                    progressDialog.dismiss();
                                 }
-
-                                Toast.makeText(LoginActivity.this, "Welcome " + objfullname, Toast.LENGTH_LONG).show();
-                                progressDialog.dismiss();
-                                startActivity(intent);
-                                finish();
                             } else {
-                                String message = jsonObject.getString("message");
+                                // Xử lý khi trường success không tồn tại
+                                String message = jsonObject.optString("message", "Unknown error");
                                 Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
                                 progressDialog.dismiss();
                             }
@@ -181,17 +170,20 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
-                    params.put("username", username);
+                    params.put("email", email);
                     params.put("password", password);
-                    params.put("utype", selectedRole); // Gửi vai trò người dùng chọn
-                    Log.d("LoginParams", "Username: " + username + ", Password: " + password + ", Role: " + selectedRole);
+                    params.put("utype", selectedRole);
+                    Log.d("LoginParams", "Email: " + email + ", Password: " + password + ", Role: " + selectedRole);
                     return params;
                 }
             };
+
 
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             requestQueue.add(stringRequest);
         }
     }
+
+
 
 }

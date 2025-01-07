@@ -2,6 +2,7 @@ package com.lph.selfcareapp.Login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 import com.lph.selfcareapp.R;
+import com.lph.selfcareapp.Utils.AESUtils;
 import com.lph.selfcareapp.Utils.Utils;
 
 import org.json.JSONException;
@@ -31,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
-    TextInputEditText fullnameEditText, emailEditText, phoneEditText, usernameEditText, passwordEditText, confirmPasswordEditText;
+    TextInputEditText fullnameEditText, emailEditText, phoneEditText, addressEditText,dobEditText,nicEditText, passwordEditText, confirmPasswordEditText;
     TextView loginRedirect;
     Button signUpButton;
     Spinner roleSpinner;
@@ -65,10 +67,12 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void Anhxa() {
-        fullnameEditText = findViewById(R.id.fullnamelEditText);
+        fullnameEditText = findViewById(R.id.fullnameEditText);
         emailEditText = findViewById(R.id.emailEditText);
         phoneEditText = findViewById(R.id.phoneEditText);
-        usernameEditText = findViewById(R.id.usernameEditText);
+        addressEditText = findViewById(R.id.addressEditText);
+        dobEditText = findViewById(R.id.dobEditText);
+        nicEditText = findViewById(R.id.nicEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
         loginRedirect = findViewById(R.id.loginRedirect);
@@ -83,14 +87,16 @@ public class SignUpActivity extends AppCompatActivity {
         String fullname = fullnameEditText.getText().toString().trim();
         String email = emailEditText.getText().toString().trim();
         String phone = phoneEditText.getText().toString().trim();
-        String username = usernameEditText.getText().toString().trim();
+        String address = addressEditText.getText().toString().trim();
+        String dob = dobEditText.getText().toString().trim();
+        String nic = nicEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
         String confirmPassword = confirmPasswordEditText.getText().toString().trim();
-        String role = roleSpinner.getSelectedItem().toString(); // Vai trò (utype)
-        String extraInfo = "Default info"; // Thêm thông tin chi tiết (nếu cần)
+        String role = roleSpinner.getSelectedItem().toString();
+        String extraInfo = "Default info";
 
         // Kiểm tra dữ liệu bắt buộc
-        if (fullname.isEmpty() || email.isEmpty() || phone.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+        if (fullname.isEmpty() || email.isEmpty() || phone.isEmpty() || address.isEmpty() || dob.isEmpty() || nic.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(SignUpActivity.this, "Please fill in all fields", Toast.LENGTH_LONG).show();
             return;
         }
@@ -100,8 +106,8 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         progressDialog.show();
-        // Mã hóa mật khẩu trước khi gửi
-        String hashedPassword = Utils.hashPassword(password);
+
+        String hashedPassword = PasswordHelper.hashPassword(password);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url_register,
                 new Response.Listener<String>() {
@@ -114,6 +120,23 @@ public class SignUpActivity extends AppCompatActivity {
 
                             if (success.equals("1")) {
                                 progressDialog.dismiss();
+                                SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                try {
+                                    String key = "MySecretKey12345"; // Hoặc tạo một khóa riêng cho từng người dùng
+                                    editor.putString("fullname", AESUtils.encrypt(fullname, key));
+                                    editor.putString("dob", AESUtils.encrypt(dob, key));
+                                    editor.putString("nic", AESUtils.encrypt(nic, key));
+                                    editor.putString("address", AESUtils.encrypt(address, key));
+                                    editor.putString("phone", AESUtils.encrypt(phone, key));
+                                    editor.putString("email", AESUtils.encrypt(email, key));
+                                    editor.putString("role", AESUtils.encrypt(role, key));
+                                    editor.apply();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(SignUpActivity.this, "Error saving data", Toast.LENGTH_SHORT).show();
+                                }
                                 Toast.makeText(SignUpActivity.this, message, Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                                 startActivity(intent);
@@ -144,10 +167,12 @@ public class SignUpActivity extends AppCompatActivity {
                 params.put("fullname", fullname);
                 params.put("email", email);
                 params.put("phone", phone);
-                params.put("username", username);
-                params.put("password", password);
+                params.put("address", address);
+                params.put("dob", dob);
+                params.put("nic", nic);
+                params.put("password", hashedPassword);
                 params.put("utype", role); // Gửi vai trò
-                params.put("extra_info", extraInfo); // Gửi thông tin chi tiết
+                params.put("extra_info", extraInfo);
                 return params;
             }
         };

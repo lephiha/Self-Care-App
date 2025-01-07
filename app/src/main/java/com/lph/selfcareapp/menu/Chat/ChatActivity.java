@@ -1,150 +1,126 @@
 package com.lph.selfcareapp.menu.Chat;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+
+import com.google.ai.client.generativeai.java.ChatFutures;
+import com.google.ai.client.generativeai.java.GenerativeModelFutures;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.lph.selfcareapp.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 
 public class ChatActivity extends AppCompatActivity {
-    private RecyclerView recyclerViewMessages;
-    private EditText editTextMessage;
-    private ImageButton buttonSend;
-    private List<Message> messageList;
-    private MessageAdapter messageAdapter;
 
-    private String url_get_messages = "http://192.168.0.107/selfcare/get_massage.php";
-    private String url_send_message = "http://192.168.0.107/selfcare/send_massage.php";
-    private String username = "doctor";  // Thay đổi theo người dùng
-    private String receiver = "patient";  // Thay đổi theo người dùng
+    private TextInputEditText queryEditText;
+    private ImageView sendquery, logochat, appIcon;
+    FloatingActionButton btnShowDialog;
+    private ProgressBar progressBar;
+    private LinearLayout chatResponse;
+    private ChatFutures chatModel;
+    Dialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.activity_chat_ai);
 
-        recyclerViewMessages = findViewById(R.id.chatRecyclerView);
-        editTextMessage = findViewById(R.id.edit_text_message);
-        buttonSend = findViewById(R.id.send_button);
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.message_dialog);
 
-        messageList = new ArrayList<>();
-        messageAdapter = new MessageAdapter(messageList);
-        recyclerViewMessages.setAdapter(messageAdapter);
-        recyclerViewMessages.setLayoutManager(new LinearLayoutManager(this));
+        if(dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.setCancelable(false);
+        }
 
-        buttonSend.setOnClickListener(new View.OnClickListener() {
+        sendquery = dialog.findViewById(R.id.SendMassage);
+        queryEditText = dialog.findViewById(R.id.queryEditText);
+
+        btnShowDialog = findViewById(R.id.showMessageDialog);
+        progressBar = findViewById(R.id.progressBar);
+
+        chatResponse = findViewById(R.id.chatResponse);
+        appIcon = findViewById(R.id.appIcon);
+        chatModel = getChatModel();
+
+        btnShowDialog.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                sendMessage();
+            public void onClick(View view) {
+                dialog.show();
             }
         });
 
-        // Lấy tin nhắn từ server
-        getMessages();
-    }
 
-    private void getMessages() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_get_messages,
-                new Response.Listener<String>() {
+        sendquery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                progressBar.setVisibility(View.VISIBLE);
+                appIcon.setVisibility(View.GONE);
+                String query = queryEditText.getText().toString();
+
+                queryEditText.setText("");
+
+                chatBody("You", query, getDrawable(R.drawable.lph));
+
+                GeminiRes.getResponse(chatModel, query, new ResponseCallback() {
                     @Override
                     public void onResponse(String response) {
-                        try {
-                            // Chuyển đổi phản hồi thành JSONObject trước
-                            JSONObject jsonResponse = new JSONObject(response);
+                        progressBar.setVisibility(View.GONE);
+                        chatBody("AI", response, getDrawable(R.drawable.logo));
 
-                            // Kiểm tra thành công
-                            if (jsonResponse.getInt("success") == 1) {
-                                // Nếu thành công, lấy mảng tin nhắn
-                                JSONArray jsonArray = jsonResponse.getJSONArray("data");  // Thay "data" bằng tên trường thực tế nếu khác
-                                messageList.clear();  // Xóa danh sách trước khi thêm mới
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                    String sender = jsonObject.getString("sender");
-                                    String message = jsonObject.getString("message");
-                                    String timestamp = jsonObject.getString("timestamp");
-
-                                    messageList.add(new Message(sender, message, timestamp));
-                                }
-                            } else {
-                                // Xử lý thông báo lỗi
-                                String message = jsonResponse.getString("message");
-                                Log.e("ChatActivity", message); // Log lỗi hoặc hiển thị cho người dùng
-                            }
-                            messageAdapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Volley Error", error.toString());
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("sender", username);
-                params.put("receiver", receiver);
-                return params;
-            }
-        };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+                    @Override
+                    public void onError(Throwable throwable) {
+                        chatBody("AI", "Please try again.", getDrawable(R.drawable.logo));
+                        progressBar.setVisibility(View.GONE);
+
+                    }
+                });
+            }
+        });
+
     }
 
+    private ChatFutures getChatModel() {
 
-    private void sendMessage() {
-        final String message = editTextMessage.getText().toString().trim();
-        if (message.isEmpty()) {
-            return;
-        }
+        GeminiRes model = new GeminiRes();
+        GenerativeModelFutures modelFutures = model.getModel();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_send_message,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        messageList.add(new Message(username, message, "now"));  // Thay đổi timestamp nếu cần
-                        messageAdapter.notifyDataSetChanged();
-                        editTextMessage.setText("");
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Volley Error", error.toString());
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("sender", username);
-                params.put("receiver", receiver);
-                params.put("message", message);
-                return params;
-            }
-        };
+        return modelFutures.startChat();
+    }
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+    private void chatBody(String userName, String query, Drawable image) {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.chat_massage, null);
+
+        TextView name = view.findViewById(R.id.namechat);
+        TextView massage = view.findViewById(R.id.agentMess);
+        ImageView logo = view.findViewById(R.id.logochat);
+
+        name.setText(userName);
+        massage.setText(query);
+        logo.setImageDrawable(image);
+
+        chatResponse.addView(view);
+
+        ScrollView scrollView = findViewById(R.id.scrollView);
+        scrollView.post(() -> scrollView.fullScroll(View.FOCUS_DOWN));
     }
 }

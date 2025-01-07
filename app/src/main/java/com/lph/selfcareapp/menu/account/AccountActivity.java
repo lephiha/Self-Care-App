@@ -46,15 +46,15 @@ public class AccountActivity extends AppCompatActivity {
         backButton = findViewById(R.id.backButton);
         avatar = findViewById(R.id.avatar);
         logout_btn = findViewById(R.id.logout_btn);
-        usernameText = findViewById(R.id.username);
+        usernameText = findViewById(R.id.email);
         account_listview = findViewById(R.id.account_listview);
 
         setupNavigationView();
 
         // Lấy username từ SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
-        String username = sharedPreferences.getString("username", "lephiha");
-        usernameText.setText(username);
+        String email = sharedPreferences.getString("email", "lephiha");
+        usernameText.setText(email);
 
         // Thiết lập sự kiện cho nút quay lại
         backButton.setOnClickListener(v -> onBackPressed());

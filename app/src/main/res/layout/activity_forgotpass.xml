@@ -19,7 +19,7 @@
         android:textColor="@color/colorPrimary"
         android:layout_marginBottom="30dp" />
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/logochat"
         android:layout_width="220dp"
         android:layout_height="220dp"
         android:src="@drawable/logo"

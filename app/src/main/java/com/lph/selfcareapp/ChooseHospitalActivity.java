@@ -57,25 +57,37 @@ public class ChooseHospitalActivity extends AppCompatActivity implements ChooseC
             @Override
             public void onChanged(ClinicList clinicList) {
                 clinics = clinicList;
-                for(Clinic clinic: clinics){
+                for (Clinic clinic : clinics) {
                     SharedPreferences sp = getSharedPreferences("UserData", MODE_PRIVATE);
-                    double longitude = Double.parseDouble(sp.getString("longitude",""));
-                    double latitude = Double.parseDouble(sp.getString("latitude",""));
-                    Location startLocation = new Location("start");
-                    startLocation.setLatitude(latitude);
-                    startLocation.setLongitude(longitude);
+                    String longitudeStr = sp.getString("longitude", "");
+                    String latitudeStr = sp.getString("latitude", "");
 
-                    Location endLocation = new Location("end");
-                    endLocation.setLatitude(clinic.getLatitude());
-                    endLocation.setLongitude(clinic.getLongitude());
-                    float distance = startLocation.distanceTo(endLocation);
-                    clinic.setDistance(distance);
+                    // Kiểm tra nếu longitude và latitude không phải là chuỗi rỗng
+                    if (!longitudeStr.isEmpty() && !latitudeStr.isEmpty()) {
+                        double longitude = Double.parseDouble(longitudeStr);
+                        double latitude = Double.parseDouble(latitudeStr);
+
+                        Location startLocation = new Location("start");
+                        startLocation.setLatitude(latitude);
+                        startLocation.setLongitude(longitude);
+
+                        Location endLocation = new Location("end");
+                        endLocation.setLatitude(clinic.getLatitude());
+                        endLocation.setLongitude(clinic.getLongitude());
+                        float distance = startLocation.distanceTo(endLocation);
+                        clinic.setDistance(distance);
+                    } else {
+                        // Xử lý khi không có giá trị hợp lệ cho longitude hoặc latitude
+                        // Ví dụ: có thể thiết lập giá trị mặc định hoặc thông báo cho người dùng
+                        clinic.setDistance(-1); // Ví dụ thiết lập giá trị khoảng cách là -1 nếu không có dữ liệu vị trí
+                    }
                 }
                 clinics.sort((o1, o2) -> (int)(o1.getDistance()-o2.getDistance()));
                 displayClinicsInRecyclerview();
             }
         });
     }
+
 
     public void displayClinicsInRecyclerview(){
         clinicAdapter = new ClinicAdapter(this, clinics,this);

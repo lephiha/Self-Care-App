@@ -43,6 +43,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.lph.selfcareapp.Utils.BottomNavigationViewHelper;
+import com.lph.selfcareapp.lockscreen.LockScreenHelper;
 import com.lph.selfcareapp.menu.Chat.ChatActivity;
 import com.lph.selfcareapp.menu.MedicalTicketActivity;
 import com.lph.selfcareapp.menu.account.AccountActivity;
@@ -68,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        // Kiểm tra và yêu cầu thiết lập màn hình khóa nếu chưa có
+        LockScreenHelper lockScreenHelper = new LockScreenHelper(this);
+        lockScreenHelper.showLockScreenAlert();
+
         // Ánh xạ
         fullnameTextView = findViewById(R.id.fullnameTextView);
         bottomNavigationView = findViewById(R.id.bottomNavBar);

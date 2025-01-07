@@ -1,7 +1,13 @@
 package com.lph.selfcareapp.model;
 
+import android.util.Base64;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 public class Appointment2 {
 
@@ -29,6 +35,10 @@ public class Appointment2 {
     @SerializedName("image")
     @Expose
     private String image;
+
+    // Khóa mã hóa (nên bảo mật khóa này, không để lộ trực tiếp)
+    private static final String ENCRYPTION_KEY = "your-32-char-encryption-key";
+    private static final String IV = "1234567891011121";
 
     public Integer getAppoid() {
         return appoid;
@@ -92,5 +102,25 @@ public class Appointment2 {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    // Phương thức mã hóa
+    private static String encrypt(String data) throws Exception {
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        SecretKeySpec keySpec = new SecretKeySpec(ENCRYPTION_KEY.getBytes(), "AES");
+        IvParameterSpec ivSpec = new IvParameterSpec(IV.getBytes());
+        cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
+        byte[] encrypted = cipher.doFinal(data.getBytes());
+        return Base64.encodeToString(encrypted, Base64.DEFAULT);
+    }
+
+    // Phương thức giải mã
+    private static String decrypt(String encryptedData) throws Exception {
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        SecretKeySpec keySpec = new SecretKeySpec(ENCRYPTION_KEY.getBytes(), "AES");
+        IvParameterSpec ivSpec = new IvParameterSpec(IV.getBytes());
+        cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
+        byte[] original = cipher.doFinal(Base64.decode(encryptedData, Base64.DEFAULT));
+        return new String(original);
     }
 }

@@ -82,4 +82,14 @@ dependencies {
     implementation ("com.google.android.gms:play-services-location:17.0.0")
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
 
+    implementation ("org.mindrot:jbcrypt:0.4")
+
+    //ai client
+    implementation("com.google.ai.client.generativeai:generativeai:0.7.0")
+
+    implementation("com.google.guava:guava:33.4.0-android")
+
+    implementation("org.reactivestreams:reactive-streams:1.0.4");
+
+
 }

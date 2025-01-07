@@ -5,7 +5,7 @@
     android:background="#FFFFFF">
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/logochat"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:src="@drawable/logo"
@@ -37,7 +37,7 @@
         />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/usernameInput"
+        android:id="@+id/emailInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -47,12 +47,12 @@
         app:helperTextEnabled="true"
         app:helperText="Enter User Name"
         app:helperTextTextColor="@color/brown_200"
-        android:layout_below="@+id/logo">
+        android:layout_below="@+id/logochat">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/usernameEditText"
+            android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="User Name"
+            android:hint="Email"
             android:drawableStart="@drawable/person"
             android:drawablePadding="12dp"
             />
@@ -71,7 +71,7 @@
         app:helperText="Enter Password"
         app:helperTextTextColor="@color/brown_200"
         app:endIconMode="password_toggle"
-        android:layout_below="@+id/usernameInput">
+        android:layout_below="@+id/emailInput">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditText"

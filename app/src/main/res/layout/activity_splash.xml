@@ -5,7 +5,7 @@
     android:background="#FFFFFF">
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/logochat"
         android:layout_width="400dp"
         android:layout_height="450dp"
         android:src="@drawable/logo"
@@ -44,7 +44,7 @@
         android:text="Sign Up"
         android:textColor="#ffffff"
         android:backgroundTint="#6a1b9a"
-        android:layout_below="@+id/logo"
+        android:layout_below="@+id/logochat"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
 

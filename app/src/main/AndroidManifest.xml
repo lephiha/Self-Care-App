@@ -12,6 +12,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Include this permission for fine (precise) location -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Include this permission if your app needs background location access -->
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.SET_KEYGUARD" />
+
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -21,6 +23,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -92,6 +95,9 @@
         <activity android:name=".menu.DiagnoseActivity" />
         <activity android:name=".stringee.activity.StringeeActivity" />
         <activity android:name=".tuvanOnline.TuvanActivity"/>
+        <activity android:name=".tuvanOnline.AskQuestionActivity"/>
+
+
     </application>
 
 </manifest>
