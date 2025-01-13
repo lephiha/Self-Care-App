@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.lph.selfcareapp"
-        minSdk = 24
+        minSdk = 30
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -90,6 +90,11 @@ dependencies {
     implementation("com.google.guava:guava:33.4.0-android")
 
     implementation("org.reactivestreams:reactive-streams:1.0.4");
+
+    //sinh trắc học
+    implementation("androidx.biometric:biometric:1.0.1")
+
+
 
 
 }

@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +26,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -51,6 +54,11 @@ import com.lph.selfcareapp.menu.account.InfoUserActivity;
 import com.lph.selfcareapp.stringee.activity.StringeeActivity;
 import com.lph.selfcareapp.tuvanOnline.TuvanActivity;
 
+import java.util.concurrent.Executor;
+import androidx.biometric.BiometricManager;
+import androidx.biometric.BiometricPrompt;
+
+
 public class MainActivity extends AppCompatActivity {
     Button bookingBtn;
     TextView fullnameTextView;
@@ -64,15 +72,21 @@ public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_BACKGROUND_LOCATION_PERMISSION = 123;
     public static final int REQUEST_CHECK_SETTINGS = 999;
     LocationSettingsRequest.Builder builder;
+
+
+    private Executor executor;
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        // Kiểm tra và yêu cầu thiết lập màn hình khóa nếu chưa có
         LockScreenHelper lockScreenHelper = new LockScreenHelper(this);
-        lockScreenHelper.showLockScreenAlert();
+
+        lockScreenHelper.promptSetPinLock(this); // Yêu cầu thiết lập mã PIN
+        lockScreenHelper.authenticateUser(this);
 
         // Ánh xạ
         fullnameTextView = findViewById(R.id.fullnameTextView);
@@ -84,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         examBtn = findViewById(R.id.examBtn);
         viewResults = findViewById(R.id.viewResultsBtn);
         reschedule = findViewById(R.id.reschedule);
+
         //viewflipper chuyển ảnh
         in = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         out = AnimationUtils.loadAnimation(this, R.anim.fade_out);
@@ -153,8 +168,68 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Kiểm tra xem thiết bị có hỗ trợ sinh trắc học không
+        BiometricManager biometricManager = BiometricManager.from(this);
+        switch (biometricManager.canAuthenticate()) {
+            case BiometricManager.BIOMETRIC_SUCCESS:
+                // Thiết bị hỗ trợ sinh trắc học
+                showBiometricPrompt();
+                break;
+            case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
+                Toast.makeText(this, "Thiết bị không hỗ trợ sinh trắc học", Toast.LENGTH_LONG).show();
+                finish();
+                return;
+            case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
+                Toast.makeText(this, "Sinh trắc học hiện không khả dụng", Toast.LENGTH_LONG).show();
+                finish();
+                return;
+            case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
+                Toast.makeText(this, "Vui lòng thiết lập sinh trắc học trên thiết bị của bạn", Toast.LENGTH_LONG).show();
+                Intent enrollIntent = new Intent(Settings.ACTION_BIOMETRIC_ENROLL);
+                startActivity(enrollIntent);
+                finish();
+                return;
+            default:
+                Toast.makeText(this, "Không thể sử dụng sinh trắc học", Toast.LENGTH_LONG).show();
+                finish();
+                return;
+        }
 
 
+
+
+    }
+
+    private void showBiometricPrompt() {
+        Executor executor = ContextCompat.getMainExecutor(this);
+        BiometricPrompt biometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+                Toast.makeText(MainActivity.this, "Lỗi xác thực: " + errString, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                Toast.makeText(MainActivity.this, "Xác thực thành công!", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                Toast.makeText(MainActivity.this, "Xác thực không thành công, thử lại!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Xác thực sinh trắc học")
+                .setSubtitle("Sử dụng vân tay hoặc khuôn mặt để xác thực")
+                .setNegativeButtonText("Hủy")
+                .build();
+
+        biometricPrompt.authenticate(promptInfo);
     }
     // Declare the launcher at the top of your Activity/Fragment:
     private final ActivityResultLauncher<String> requestPermissionLauncher =
@@ -292,4 +367,6 @@ public class MainActivity extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
     }
+
+
 }

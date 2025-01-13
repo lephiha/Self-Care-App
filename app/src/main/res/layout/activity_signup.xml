@@ -54,7 +54,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Full Name"
+                android:drawableStart="@drawable/baseline_account_circle_24"
                 android:inputType="text"
+                android:drawablePadding="12dp"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,7 +73,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Email"
+                android:drawableStart="@drawable/baseline_mail_24"
                 android:inputType="textEmailAddress"
+                android:drawablePadding="12dp"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,6 +93,8 @@
                 android:layout_height="match_parent"
                 android:hint="Phone Number"
                 android:inputType="phone"
+                android:drawablePadding="12dp"
+                android:drawableStart="@drawable/baseline_local_phone_24"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,6 +111,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Address"
+                android:drawableStart="@drawable/baseline_home_24"
+                android:drawablePadding="12dp"
                 android:inputType="text"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -122,6 +130,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Date of Birth (YYYY-MM-DD)"
+                android:drawablePadding="12dp"
+                android:drawableStart="@drawable/baseline_birth"
                 android:inputType="date"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -139,6 +149,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="NIC"
+                android:drawablePadding="12dp"
+                android:drawableStart="@drawable/baseline_account_circle_24"
                 android:inputType="text"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>

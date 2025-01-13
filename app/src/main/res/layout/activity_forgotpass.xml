@@ -29,39 +29,24 @@
 
         />
 
-    <!-- phone number -->
+    <!-- mail -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/phoneEditText"
+            android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"
-            android:inputType="phone"
-            android:drawableStart="@drawable/baseline_local_phone_24"
+            android:hint="Nhập Email"
+            android:inputType="textEmailAddress"
+            android:drawableStart="@drawable/baseline_mail_24"
             android:drawablePadding="12dp"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- username -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/usernameEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="User Name"
-            android:inputType="text"
-            android:drawableStart="@drawable/person"
-            android:drawablePadding="12dp"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Nút submit -->
     <Button
@@ -72,4 +57,14 @@
         android:background="@drawable/button_background"
         android:text="Submit"
         android:textColor="@color/white" />
+    <TextView
+        android:id="@+id/signUpRedirect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't have an account? Sign Up"
+        android:textSize="14sp"
+        android:layout_below="@id/loginBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textColor="#4D2CBA"/>
 </LinearLayout>

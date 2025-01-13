@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,6 +26,7 @@ import com.lph.selfcareapp.MainDoctorActivity;
 import com.lph.selfcareapp.R;
 import com.lph.selfcareapp.Utils.AESUtils;
 import com.lph.selfcareapp.Utils.Utils;
+import com.lph.selfcareapp.lockscreen.LockScreenHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +36,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
+import java.util.concurrent.Executor;
+
 
 public class LoginActivity extends AppCompatActivity {
     TextView signUpRedirect, tv_error, forgotPassword;
@@ -41,8 +47,12 @@ public class LoginActivity extends AppCompatActivity {
     Button loginBtn;
     Spinner roleSpiner;
 
+    BiometricPrompt biometricPrompt;
+    Executor executor;
 
-//    String url_login = "edoc.clbook-doctor/login.php";
+
+
+    //    String url_login = "edoc.clbook-doctor/login.php";
     String url_login = "http://192.168.56.1/book-doctor/login.php";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,11 +62,17 @@ public class LoginActivity extends AppCompatActivity {
         // Ánh xạ các view
         Anhxa();
 
+        // Kiểm tra và yêu cầu thiết lập màn hình khóa nếu chưa có
+        LockScreenHelper lockScreenHelper = new LockScreenHelper(this);
+
+        lockScreenHelper.promptSetPinLock(this); // Yêu cầu thiết lập mã PIN
+        lockScreenHelper.authenticateUser(this);
         // click sign up
         signUpRedirect.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
             startActivity(intent);
         });
+
 
         // click login
         loginBtn.setOnClickListener(view -> GoLogin());
@@ -78,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         forgotPassword = findViewById(R.id.forgotPassword);
         roleSpiner = findViewById(R.id.roleSpinner);
     }
+
 
     private void GoLogin() {
         String email = emailEditText.getText().toString().trim();
@@ -183,7 +200,5 @@ public class LoginActivity extends AppCompatActivity {
             requestQueue.add(stringRequest);
         }
     }
-
-
 
 }

@@ -51,6 +51,8 @@ public interface ApiService {
     @GET("book-doctor/appointment2.php")
     Call<List<Appointment>> getAppointment2(@Query("docid") int docid);
 
+
+
     @FormUrlEncoded
     @POST("api/1/upload")
     Call<String> getImageUrl(@Field("key") String key,
